@@ -1,5 +1,6 @@
 class GetData {
-  url = "https://api.themoviedb.org/3/search/";
+  url =
+    "https://api.themoviedb.org/3/search/movie?query=a&include_adult=false&language=en-US&page=1";
   options = {
     method: "GET",
     headers: {
@@ -18,10 +19,7 @@ class GetData {
   }
 
   async getAllMovies() {
-    let allMovies = await this.getResources(
-      `${this.url}movie?query=a&include_adult=false&language=en-US&page=1`,
-      this.options
-    );
+    let allMovies = await this.getResources(this.url, this.options);
     return allMovies;
   }
 }
