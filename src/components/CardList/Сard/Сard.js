@@ -3,27 +3,23 @@ import cardBG from "./cardBG.png";
 import "./Card.css";
 import { Tag } from "antd";
 
-function Card() {
+function Card({ card }) {
   let date = new Date();
+  console.log(card);
   return (
     <div className="Card">
       <div className="Image">
         <img alt="no alt" src={cardBG} />
       </div>
       <div className="Content">
-        <h2 className="Content_h2">This Page</h2>
+        <h2 className="Content_h2">{card.title}</h2>
 
         <p className="Date">{date.toLocaleDateString()}</p>
         <div className="Tags">
           <Tag>Action</Tag>
           <Tag>Drama</Tag>
         </div>
-        <p className="Text">
-          A former basketball all-star, who has lost his wife and family
-          foundation in a struggle with addiction attempts to regain his soul
-          and salvation by becoming the coach of a disparate ethnically mixed
-          high ...
-        </p>
+        <p className="Text">{card.overview}</p>
       </div>
     </div>
   );

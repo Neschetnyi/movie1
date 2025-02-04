@@ -11,23 +11,15 @@ class GetData {
   };
 
   async getResources(url, options) {
-    const res = await fetch(url, options);
-    await res.then((value) => {
-      console.log(value.json());
-    });
+    let res = await fetch(url, options);
+
     return await res.json();
   }
 
   async getAllMovies() {
     let allMovies = await this.getResources(this.url, this.options);
-    return allMovies;
+    return allMovies.results;
   }
 }
-
-const getData = new GetData();
-
-getData.getAllMovies().then((value) => {
-  console.log(value);
-});
 
 export default GetData;
