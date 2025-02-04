@@ -3,6 +3,7 @@ import Card from "./Сard/Сard";
 import "./CardList.css";
 import GetData from "../../servises/GetData";
 import { Spin } from "antd";
+import { Alert } from "antd";
 
 class CardList extends Component {
   movies = new GetData();
@@ -11,7 +12,9 @@ class CardList extends Component {
     cards: null,
     onError: false,
     errorMassage: "",
+    errorName: "",
     loaded: false,
+    onlineStatus: false,
   };
 
   takeMovies() {
@@ -33,13 +36,29 @@ class CardList extends Component {
         console.log("error is: ", err.message);
         this.setState({ onError: true });
         this.setState({ errorMassage: err.message });
+        this.setState({ errorName: err.name });
       });
   }
 
+  handleOnline = () => {
+    console.log("online");
+    this.setState({ onlineStatus: false });
+  };
+
+  handleOffline = () => {
+    console.log("offline");
+    this.setState({ onlineStatus: true });
+  };
+
   componentDidMount() {
-    this.takeMovies();
-    this.changeState();
-    this.setState({ didMount: true });
+    setTimeout(() => {
+      this.takeMovies();
+      this.changeState();
+      this.setState({ didMount: true });
+    }, 1000);
+
+    window.addEventListener("online", this.handleOnline);
+    window.addEventListener("offline", this.handleOffline);
   }
 
   render() {
@@ -55,7 +74,21 @@ class CardList extends Component {
 
     return this.state.onError ? (
       <div className="CardList">
-        <h1>{this.state.errorMassage}</h1>
+        <Alert
+          message={this.state.errorName}
+          description={this.state.errorMassage}
+          type="error"
+          showIcon
+        />
+      </div>
+    ) : this.state.onlineStatus ? (
+      <div className="CardList">
+        <Alert
+          message="You are offline"
+          description="Please check your internet connection"
+          type="error"
+          showIcon
+        />
       </div>
     ) : this.state.loaded ? (
       <div className="CardList">{cardArr}</div>
