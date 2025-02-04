@@ -10,15 +10,19 @@ class GetData {
     },
   };
 
-  async getResources(url, options) {
-    let res = await fetch(url, options).then((res) => res.json());
+  getResources(url, options) {
+    let res = new Promise((resolve) => {
+      resolve(fetch(url, options));
+    });
 
-    return res;
+    return res.then((data) => {
+      return data.json();
+    });
   }
 
   async getAllMovies() {
     let allMovies = await this.getResources(this.url, this.options);
-    return allMovies;
+    return allMovies.results;
   }
 }
 

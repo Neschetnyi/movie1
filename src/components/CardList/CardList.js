@@ -2,27 +2,44 @@ import React, { Component } from "react";
 import Card from "./Сard/Сard";
 import "./CardList.css";
 import GetData from "../../servises/GetData";
+import { Spin } from "antd";
 
 class CardList extends Component {
   movies = new GetData();
 
   state = {
     cards: null,
+    onError: false,
+    errorMassage: "",
+    loaded: false,
   };
-
-  constructor() {
-    super();
-    this.takeMovies();
-    this.changeState();
-  }
 
   takeMovies() {
     this.movies.getAllMovies();
   }
   changeState() {
-    this.movies.getAllMovies().then((value) => {
-      this.setState({ cards: value });
-    });
+    this.movies
+      .getAllMovies()
+      .then((value) => {
+        if (typeof value === "object") {
+          this.setState({ cards: value.results });
+        }
+      })
+      .then(() => {
+        this.setState({ loaded: true });
+        console.log("loaded is true");
+      })
+      .catch((err) => {
+        console.log("error is: ", err.message);
+        this.setState({ onError: true });
+        this.setState({ errorMassage: err.message });
+      });
+  }
+
+  componentDidMount() {
+    this.takeMovies();
+    this.changeState();
+    this.setState({ didMount: true });
   }
 
   render() {
@@ -36,8 +53,17 @@ class CardList extends Component {
       }
     }
 
-    console.log(this.state.cards);
-    return <div className="CardList">{cardArr}</div>;
+    return this.state.onError ? (
+      <div className="CardList">
+        <h1>{this.state.errorMassage}</h1>
+      </div>
+    ) : this.state.loaded ? (
+      <div className="CardList">{cardArr}</div>
+    ) : (
+      <div className="CardList">
+        <Spin size="large" />
+      </div>
+    );
   }
 }
 
