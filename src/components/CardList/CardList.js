@@ -6,8 +6,6 @@ import { Spin } from "antd";
 import { Alert } from "antd";
 
 class CardList extends Component {
-  movies = new GetData();
-
   state = {
     cards: null,
     onError: false,
@@ -15,13 +13,23 @@ class CardList extends Component {
     errorName: "",
     loaded: false,
     onlineStatus: false,
+    arrLength: false,
   };
 
+  setMovies() {
+    console.log("setMovies", this.props);
+    let newMovies = new GetData(
+      `https://api.themoviedb.org/3/search/movie?query=${this.props.urlPart}&include_adult=false&language=en-US&page=1`
+    );
+    return newMovies;
+  }
+
   takeMovies() {
-    this.movies.getAllMovies();
+    console.log("state movies: ", this.setMovies());
+    this.setMovies().getAllMovies();
   }
   changeState() {
-    this.movies
+    this.setMovies()
       .getAllMovies()
       .then((value) => {
         if (typeof value === "object") {
@@ -40,6 +48,10 @@ class CardList extends Component {
       });
   }
 
+  changeStateArrLength() {
+    this.setState({ arrLength: !this.state.arrLength });
+  }
+
   handleOnline = () => {
     console.log("online");
     this.setState({ onlineStatus: false });
@@ -51,24 +63,35 @@ class CardList extends Component {
   };
 
   componentDidMount() {
-    setTimeout(() => {
-      this.takeMovies();
-      this.changeState();
-      this.setState({ didMount: true });
-    }, 1000);
+    this.setMovies();
+
+    this.takeMovies();
+    this.changeState();
+    this.setState({ didMount: true });
 
     window.addEventListener("online", this.handleOnline);
     window.addEventListener("offline", this.handleOffline);
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.urlPart !== this.props.urlPart) {
+      this.setMovies();
+      this.takeMovies();
+      this.changeState();
+    }
   }
 
   render() {
     console.log("state is: ", this.state.cards);
     let cardArr = [];
     if (this.state.cards !== null) {
-      for (let i = 0; i < 6; i++) {
-        cardArr.push(
-          <Card key={this.state.cards[i].id} card={this.state.cards[i]} />
-        );
+      console.log("cards is not null", this.state.cards);
+      if (this.state.cards.length !== 0) {
+        for (let i = 0; i < 6; i++) {
+          cardArr.push(
+            <Card key={this.state.cards[i].id} card={this.state.cards[i]} />
+          );
+        }
       }
     }
 

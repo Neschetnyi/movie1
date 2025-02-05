@@ -1,5 +1,4 @@
 import React from "react";
-import cardBG from "./cardBG.png";
 import "./Card.css";
 import { Tag } from "antd";
 
