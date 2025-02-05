@@ -1,0 +1,7 @@
+.SearchPanel {
+  width: 930px;
+  height: 30px;
+  text-align: center;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}

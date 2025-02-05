@@ -5,6 +5,7 @@
   justify-content: space-between;
   width: fit-content;
   height: fit-content;
-  padding: 35px;
+  padding-right: 35px;
+  padding-left: 35px;
   margin: 0;
 }
