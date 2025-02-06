@@ -1,11 +1,16 @@
 import React from "react";
 import "./Card.css";
 import { Tag } from "antd";
+import cardBG from "./cardBG.png";
 
 function Card({ card }) {
   let date = new Date();
-  console.log(card);
+
   let cardPoster = `https://image.tmdb.org/t/p/w500${card.backdrop_path}`;
+  if (card.backdrop_path === null) {
+    cardPoster = cardBG;
+  }
+
   return (
     <div className="Card">
       <div className="Image">

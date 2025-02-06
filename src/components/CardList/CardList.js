@@ -11,21 +11,19 @@ class CardList extends Component {
     onError: false,
     errorMassage: "",
     errorName: "",
-    loaded: false,
+    notloaded: true,
     onlineStatus: false,
-    arrLength: false,
   };
 
   setMovies() {
-    console.log("setMovies", this.props);
     let newMovies = new GetData(
-      `https://api.themoviedb.org/3/search/movie?query=${this.props.urlPart}&include_adult=false&language=en-US&page=1`
+      `https://api.themoviedb.org/3/search/movie?query=${this.props.urlPart}&include_adult=false&language=en-US&page=${this.props.pageNumber}`
     );
+    console.log("this url", newMovies.url);
     return newMovies;
   }
 
   takeMovies() {
-    console.log("state movies: ", this.setMovies());
     this.setMovies().getAllMovies();
   }
   changeState() {
@@ -37,7 +35,7 @@ class CardList extends Component {
         }
       })
       .then(() => {
-        this.setState({ loaded: true });
+        this.setState({ notloaded: false });
         console.log("loaded is true");
       })
       .catch((err) => {
@@ -48,8 +46,12 @@ class CardList extends Component {
       });
   }
 
-  changeStateArrLength() {
-    this.setState({ arrLength: !this.state.arrLength });
+  changeStateArrLengthTrue() {
+    this.setState({ arrLength: true });
+  }
+
+  changeStateArrLengthFalse() {
+    this.setState({ arrLength: false });
   }
 
   handleOnline = () => {
@@ -74,52 +76,93 @@ class CardList extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (prevProps.urlPart !== this.props.urlPart) {
-      this.setMovies();
-      this.takeMovies();
-      this.changeState();
+    console.log("componentDidUpdate");
+    console.log("page is ", this.props.pageNumber);
+    if (
+      prevProps.urlPart !== this.props.urlPart ||
+      prevProps.pageNumber !== this.props.pageNumber
+    ) {
+      this.setState({ notloaded: true }, () => {
+        this.setMovies();
+        this.takeMovies();
+        this.changeState();
+      });
     }
   }
 
   render() {
-    console.log("state is: ", this.state.cards);
     let cardArr = [];
     if (this.state.cards !== null) {
-      console.log("cards is not null", this.state.cards);
       if (this.state.cards.length !== 0) {
-        for (let i = 0; i < 6; i++) {
-          cardArr.push(
-            <Card key={this.state.cards[i].id} card={this.state.cards[i]} />
-          );
+        for (let i = 0; i < this.state.cards.length; i++) {
+          if (this.state.cards[i] !== undefined) {
+            cardArr.push(
+              <Card key={this.state.cards[i].id} card={this.state.cards[i]} />
+            );
+          }
         }
       }
     }
 
-    return this.state.onError ? (
-      <div className="CardList">
-        <Alert
-          message={this.state.errorName}
-          description={this.state.errorMassage}
-          type="error"
-          showIcon
-        />
-      </div>
-    ) : this.state.onlineStatus ? (
-      <div className="CardList">
-        <Alert
-          message="You are offline"
-          description="Please check your internet connection"
-          type="error"
-          showIcon
-        />
-      </div>
-    ) : this.state.loaded ? (
-      <div className="CardList">{cardArr}</div>
-    ) : (
-      <div className="CardList">
-        <Spin size="large" />
-      </div>
-    );
+    if (this.state.onError) {
+      console.log("contentRender error", this.state.cards);
+      return (
+        <div className="Alert">
+          <Alert
+            message={this.state.errorName}
+            description={this.state.errorMassage}
+            type="error"
+          />
+        </div>
+      );
+    } else if (this.state.onlineStatus) {
+      console.log("contentRender onlineStatus", this.state.cards);
+      return (
+        <div className="Alert">
+          <Alert
+            message="You are offline"
+            description="Please check your internet connection"
+            type="error"
+          />
+        </div>
+      );
+    } else if (
+      Array.isArray(this.state.cards) &&
+      this.state.cards.length === 0 &&
+      this.props.urlPart !== ""
+    ) {
+      console.log("contentRender arr = 0", this.state.cards);
+      return (
+        <div className="Alert">
+          <Alert
+            message="No results found"
+            description="Please try again"
+            type="info"
+          />
+        </div>
+      );
+    } else if (this.state.notloaded) {
+      console.log("contentRender notloaded", this.state.cards);
+      return (
+        <div className="Alert">
+          <Spin size="large" />
+        </div>
+      );
+    } else if (this.state.cards !== null && this.props.urlPart !== "") {
+      console.log("contentRender cards", this.state.cards);
+      return <div className="CardList">{cardArr}</div>;
+    } else {
+      console.log("contentRender default", this.state.cards);
+      return (
+        <div className="Alert">
+          <Alert
+            message="No text in search form"
+            description="Please type something"
+            type="info"
+          />
+        </div>
+      );
+    }
   }
 }
 

@@ -9,3 +9,17 @@
   padding-left: 35px;
   margin: 0;
 }
+
+.Alert {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  align-content: center;
+  width: fit-content;
+  height: 70vh;
+  padding-right: 35px;
+  padding-left: 35px;
+  margin: 0;
+}
