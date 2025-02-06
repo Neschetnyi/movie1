@@ -98,6 +98,11 @@ class CardList extends Component {
     }
   }
 
+  componentWillUnmount() {
+    window.removeEventListener("online", this.handleOnline);
+    window.removeEventListener("offline", this.handleOffline);
+  }
+
   render() {
     let cardArr = [];
     if (this.state.cards !== null) {

@@ -5,7 +5,7 @@ import _debounce from "lodash/debounce";
 class SearchPanel extends Component {
   onChange = (e) => {
     e.preventDefault();
-    _debounce(this.props.changeUrlPart, 1000)(e.target.value);
+    _debounce(this.props.changeUrlPart, 1500)(e.target.value);
   };
 
   render() {
