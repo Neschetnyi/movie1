@@ -13,6 +13,7 @@ class CardList extends Component {
     errorName: "",
     notloaded: true,
     onlineStatus: false,
+    error: null,
   };
 
   setMovies() {
@@ -24,7 +25,14 @@ class CardList extends Component {
   }
 
   takeMovies() {
-    this.setMovies().getAllMovies();
+    this.setMovies()
+      .getAllMovies()
+      .catch((err) => {
+        console.log("error is: ", err.message);
+        this.setState({ onError: true });
+        this.setState({ errorMassage: err.message });
+        this.setState({ errorName: err.name });
+      });
   }
   changeState() {
     this.setMovies()
