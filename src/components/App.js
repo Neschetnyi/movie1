@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import CardList from "./CardList/CardList";
 import SearchPanel from "./SearchPanel/SearchPanel";
 import PaginationComponent from "./PaginationComponent/PaginationComponent";
+import Switcher from "./Switcher/Switcher";
 
 import "./App.css";
 
@@ -22,6 +23,9 @@ class App extends Component {
   render() {
     return (
       <div className="App">
+        <div className="AppHeader">
+          <Switcher />
+        </div>
         <div className="AppSearch">
           <SearchPanel changeUrlPart={this.changeUrlPart} />
         </div>
