@@ -25,7 +25,7 @@ class PaginationComponent extends Component {
       <Pagination
         current={this.state.current}
         onChange={this.onChange}
-        total={50}
+        total={1000}
       />
     );
   }
