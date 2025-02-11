@@ -34,21 +34,34 @@
 }
 
 .Content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   font-family: "AG Helvetica", sans-serif;
   width: 100%;
-  max-height: 100%;
+  height: calc(100% - 15px);
+
   padding: 15px;
+  padding-top: 0;
   margin: 0;
   overflow: hidden;
+}
+
+.ContentHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  height: fit-content;
 }
 
 .Content_h2 {
   font-size: 22px;
   font-weight: 500;
   color: #000;
-
+  max-height: 80px;
   padding-top: 15px;
   margin: 0;
+  overflow: hidden;
 }
 
 .Date {
