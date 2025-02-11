@@ -4,7 +4,7 @@ import SearchPanel from "./SearchPanel/SearchPanel";
 import PaginationComponent from "./PaginationComponent/PaginationComponent";
 import TabList from "./TabList/TabList";
 import GetData from "../servises/GetData";
-import { MyProvider } from "./MyContext/MyContext";
+import MyContext from "./MyContext/MyContext";
 import "./App.css";
 
 class App extends Component {
@@ -27,7 +27,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <MyProvider
+        <MyContext.Provider
           value={{
             urlPart: this.state.urlPart,
             pageNumber: this.state.pageNumber,
@@ -48,7 +48,7 @@ class App extends Component {
           <div className="AppPagination">
             <PaginationComponent changePageNumber={this.changePageNumber} />
           </div>
-        </MyProvider>
+        </MyContext.Provider>
       </div>
     );
   }

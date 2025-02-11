@@ -4,6 +4,7 @@ import "./CardList.css";
 import GetData from "../../servises/GetData";
 import { Spin } from "antd";
 import { Alert } from "antd";
+import MyContext from "../MyContext/MyContext";
 
 class CardList extends Component {
   state = {
@@ -18,7 +19,7 @@ class CardList extends Component {
 
   setMovies() {
     let newMovies = new GetData(
-      `https://api.themoviedb.org/3/search/movie?query=${this.props.urlPart}&include_adult=false&language=en-US&page=${this.props.pageNumber}`
+      `https://api.themoviedb.org/3/search/movie?query=${this.context.urlPart}&include_adult=false&language=en-US&page=${this.context.pageNumber}`
     );
     console.log("this url", newMovies.url);
     return newMovies;
@@ -85,10 +86,10 @@ class CardList extends Component {
 
   componentDidUpdate(prevProps) {
     console.log("componentDidUpdate");
-    console.log("page is ", this.props.pageNumber);
+    console.log("page is ", this.context.pageNumber);
     if (
-      prevProps.urlPart !== this.props.urlPart ||
-      prevProps.pageNumber !== this.props.pageNumber
+      prevProps.urlPart !== this.context.urlPart ||
+      prevProps.pageNumber !== this.context.pageNumber
     ) {
       this.setState({ notloaded: true }, () => {
         this.setMovies();
@@ -142,7 +143,7 @@ class CardList extends Component {
     } else if (
       Array.isArray(this.state.cards) &&
       this.state.cards.length === 0 &&
-      this.props.urlPart !== ""
+      this.context.urlPart !== ""
     ) {
       console.log("contentRender arr = 0", this.state.cards);
       return (
@@ -161,7 +162,7 @@ class CardList extends Component {
           <Spin size="large" />
         </div>
       );
-    } else if (this.state.cards !== null && this.props.urlPart !== "") {
+    } else if (this.state.cards !== null && this.context.urlPart !== "") {
       console.log("contentRender cards", this.state.cards);
       return <div className="CardList">{cardArr}</div>;
     } else {
@@ -178,5 +179,7 @@ class CardList extends Component {
     }
   }
 }
+
+CardList.contextType = MyContext;
 
 export default CardList;

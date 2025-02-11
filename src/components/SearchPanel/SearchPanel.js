@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./SearchPanel.css";
 import _debounce from "lodash/debounce";
-import { MyConsumer } from "../MyContext/MyContext";
+import MyContext from "../MyContext/MyContext";
 
 class SearchPanel extends Component {
   onChange = (e, changeUrlPart) => {
@@ -10,19 +10,18 @@ class SearchPanel extends Component {
   };
 
   render() {
+    const { changeUrlPart } = this.context;
     return (
-      <MyConsumer>
-        {({ changeUrlPart }) => (
-          <input
-            className="SearchPanel"
-            type="text"
-            placeholder="Search for the movie"
-            onChange={(e) => this.onChange(e, changeUrlPart)}
-          />
-        )}
-      </MyConsumer>
+      <input
+        className="SearchPanel"
+        type="text"
+        placeholder="Search for the movie"
+        onChange={(e) => this.onChange(e, changeUrlPart)}
+      />
     );
   }
 }
+
+SearchPanel.contextType = MyContext;
 
 export default SearchPanel;
