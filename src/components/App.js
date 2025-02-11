@@ -13,6 +13,52 @@ class App extends Component {
     urlPart: "a",
     pageNumber: 1,
     renderContent: false,
+    id: null,
+    cards: null,
+    notLoaded: true,
+  };
+
+  changeNotLoadedTrue = () => {
+    this.setState({ notLoaded: true });
+  };
+
+  changeNotLoadedFalse = () => {
+    this.setState({ notLoaded: false });
+  };
+
+  changeCards = () => {
+    this.changeNotLoadedTrue();
+    console.log("NotLoaded", this.state.notLoaded);
+    this.setMovies()
+      .getAllMovies()
+      .then((value) => {
+        if (typeof value === "object") {
+          this.setState({ cards: value.results });
+        }
+
+        this.changeNotLoadedFalse();
+        console.log("NotLoaded", this.state.notLoaded);
+      })
+      .catch((err) => {
+        console.log("error is: ", err.message);
+        this.setState({ onError: true });
+        this.setState({ errorMassage: err.message });
+        this.setState({ errorName: err.name });
+      })
+      .catch((err) => {
+        console.log("error is: ", err.message);
+        this.setState({ onError: true });
+        this.setState({ errorMassage: err.message });
+        this.setState({ errorName: err.name });
+      });
+  };
+
+  setMovies = () => {
+    let newMovies = new GetData(
+      `https://api.themoviedb.org/3/search/movie?query=${this.state.urlPart}&include_adult=false&language=en-US&page=${this.state.pageNumber}`
+    );
+    console.log("this url", newMovies.url);
+    return newMovies;
   };
 
   changeUrlPart = (urlPart) => {
@@ -24,11 +70,11 @@ class App extends Component {
   };
 
   componentDidMount() {
-    let clientSession = new ClientSession();
-    clientSession.getSession().then((response) => {
+    let clientSession = new ClientSession().getSession().then((response) => {
       this.setState({ renderContent: true });
     });
   }
+
   render() {
     if (this.state.renderContent) {
       return (
@@ -37,9 +83,12 @@ class App extends Component {
             value={{
               urlPart: this.state.urlPart,
               pageNumber: this.state.pageNumber,
-              Data: this.state.Data,
+              cards: this.state.cards,
+              notLoaded: this.state.notLoaded,
               changeUrlPart: this.changeUrlPart,
               changePageNumber: this.changePageNumber,
+              changeCards: this.changeCards,
+              setMovies: this.setMovies,
             }}
           >
             <div className="AppSearch">

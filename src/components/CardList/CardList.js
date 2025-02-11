@@ -8,50 +8,14 @@ import MyContext from "../MyContext/MyContext";
 
 class CardList extends Component {
   state = {
-    cards: null,
     onError: false,
     errorMassage: "",
     errorName: "",
-    notloaded: true,
     onlineStatus: false,
     error: null,
-    prevUrl: "a",
-    prevPage: 1,
+    prevUrl: "",
+    prevPage: null,
   };
-
-  setMovies() {
-    let newMovies = new GetData(
-      `https://api.themoviedb.org/3/search/movie?query=${this.context.urlPart}&include_adult=false&language=en-US&page=${this.context.pageNumber}`
-    );
-    console.log("this url", newMovies.url);
-    return newMovies;
-  }
-
-  changeState() {
-    this.setMovies()
-      .getAllMovies()
-      .then((value) => {
-        if (typeof value === "object") {
-          this.setState({ cards: value.results });
-        }
-      })
-      .catch((err) => {
-        console.log("error is: ", err.message);
-        this.setState({ onError: true });
-        this.setState({ errorMassage: err.message });
-        this.setState({ errorName: err.name });
-      })
-      .then(() => {
-        this.setState({ notloaded: false });
-        console.log("loaded is true in changeState");
-      })
-      .catch((err) => {
-        console.log("error is: ", err.message);
-        this.setState({ onError: true });
-        this.setState({ errorMassage: err.message });
-        this.setState({ errorName: err.name });
-      });
-  }
 
   changeStateArrLengthTrue() {
     this.setState({ arrLength: true });
@@ -72,7 +36,9 @@ class CardList extends Component {
   };
 
   componentDidMount() {
-    this.changeState();
+    console.log("CardList did mount ", this.context);
+
+    this.context.changeCards();
     this.setState({ didMount: true });
 
     window.addEventListener("online", this.handleOnline);
@@ -80,22 +46,15 @@ class CardList extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
+    console.log("CardList did update ", this.context);
+
     if (
       prevState.prevUrl !== this.context.urlPart ||
       prevState.prevPage !== this.context.pageNumber
     ) {
-      this.setState(
-        {
-          notloaded: true,
-        },
-        () => {
-          console.log("loaded is true this set State");
-
-          this.changeState();
-          this.setState({ prevUrl: this.context.urlPart });
-          this.setState({ prevPage: this.context.pageNumber });
-        }
-      );
+      this.context.changeCards();
+      this.setState({ prevUrl: this.context.urlPart });
+      this.setState({ prevPage: this.context.pageNumber });
     }
   }
 
@@ -106,12 +65,15 @@ class CardList extends Component {
 
   render() {
     let cardArr = [];
-    if (this.state.cards !== null) {
-      if (this.state.cards.length !== 0) {
-        for (let i = 0; i < this.state.cards.length; i++) {
-          if (this.state.cards[i] !== undefined) {
+    if (this.context.cards !== null) {
+      if (this.context.cards.length !== 0) {
+        for (let i = 0; i < this.context.cards.length; i++) {
+          if (this.context.cards[i] !== undefined) {
             cardArr.push(
-              <Card key={this.state.cards[i].id} card={this.state.cards[i]} />
+              <Card
+                key={this.context.cards[i].id}
+                card={this.context.cards[i]}
+              />
             );
           }
         }
@@ -130,7 +92,7 @@ class CardList extends Component {
         </div>
       );
     } else if (this.state.onlineStatus) {
-      console.log("contentRender onlineStatus", this.state.cards);
+      console.log("contentRender onlineStatus", this.context.cards);
       return (
         <div className="Alert">
           <Alert
@@ -141,11 +103,11 @@ class CardList extends Component {
         </div>
       );
     } else if (
-      Array.isArray(this.state.cards) &&
-      this.state.cards.length === 0 &&
+      Array.isArray(this.context.cards) &&
+      this.context.cards.length === 0 &&
       this.context.urlPart !== ""
     ) {
-      console.log("contentRender arr = 0", this.state.cards);
+      console.log("contentRender arr = 0", this.context.cards);
       return (
         <div className="Alert">
           <Alert
@@ -155,18 +117,18 @@ class CardList extends Component {
           />
         </div>
       );
-    } else if (this.state.notloaded) {
-      console.log("contentRender notloaded", this.state.cards);
+    } else if (this.context.notLoaded) {
+      console.log("contentRender notloaded", this.context.cards);
       return (
         <div className="Alert">
           <Spin size="large" />
         </div>
       );
-    } else if (this.state.cards !== null && this.context.urlPart !== "") {
-      console.log("contentRender cards", this.state.cards);
+    } else if (this.context.cards !== null && this.context.urlPart !== "") {
+      console.log("contentRender cards", this.context.cards);
       return <div className="CardList">{cardArr}</div>;
     } else {
-      console.log("contentRender default", this.state.cards);
+      console.log("contentRender default", this.context.cards);
       return (
         <div className="Alert">
           <Alert
