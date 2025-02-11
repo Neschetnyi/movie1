@@ -2,8 +2,9 @@ import React, { Component } from "react";
 import CardList from "./CardList/CardList";
 import SearchPanel from "./SearchPanel/SearchPanel";
 import PaginationComponent from "./PaginationComponent/PaginationComponent";
-import Switcher from "./Switcher/Switcher";
-
+import TabList from "./TabList/TabList";
+import GetData from "../servises/GetData";
+import { MyProvider } from "./MyContext/MyContext";
 import "./App.css";
 
 class App extends Component {
@@ -20,24 +21,34 @@ class App extends Component {
     this.setState({ pageNumber: pageNumber });
   };
 
+  componentDidMount() {
+    this.setState({ Data: this.state.Data });
+  }
   render() {
     return (
       <div className="App">
-        <div className="AppHeader">
-          <Switcher />
-        </div>
-        <div className="AppSearch">
-          <SearchPanel changeUrlPart={this.changeUrlPart} />
-        </div>
-        <div className="AppCardlist">
-          <CardList
-            urlPart={this.state.urlPart}
-            pageNumber={this.state.pageNumber}
-          />
-        </div>
-        <div className="AppPagination">
-          <PaginationComponent changePageNumber={this.changePageNumber} />
-        </div>
+        <MyProvider
+          value={{
+            urlPart: this.state.urlPart,
+            pageNumber: this.state.pageNumber,
+            Data: this.state.Data,
+            changeUrlPart: this.changeUrlPart,
+            changePageNumber: this.changePageNumber,
+          }}
+        >
+          <div className="AppSearch">
+            <SearchPanel />
+          </div>
+          <div className="AppCardlist">
+            <CardList
+              urlPart={this.state.urlPart}
+              pageNumber={this.state.pageNumber}
+            />
+          </div>
+          <div className="AppPagination">
+            <PaginationComponent changePageNumber={this.changePageNumber} />
+          </div>
+        </MyProvider>
       </div>
     );
   }
