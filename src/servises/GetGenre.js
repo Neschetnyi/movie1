@@ -1,4 +1,4 @@
-class ClientSession {
+class GetGenre {
   options = {
     method: "GET",
     headers: {
@@ -12,13 +12,15 @@ class ClientSession {
     this.url = "https://api.themoviedb.org/3/authentication/guest_session/new";
   }
 
-  async getSession(url, options) {
-    let res = await fetch(this.url, this.options)
+  async getGenres(id, options) {
+    let res = await fetch(
+      "https://api.themoviedb.org/3/genre/movie/list?language=en",
+      this.options
+    )
       .then((res) => res.json())
       .catch((err) => console.error(err));
-
     return res;
   }
 }
 
-export default ClientSession;
+export default GetGenre;

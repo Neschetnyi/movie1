@@ -7,8 +7,11 @@ import GetData from "../servises/GetData";
 import MyContext from "./MyContext/MyContext";
 import "./App.css";
 import ClientSession from "../servises/ClientSession";
+import GetGenre from "../servises/GetGenre";
 
 class App extends Component {
+  clientSession = new ClientSession();
+
   state = {
     urlPart: "a",
     pageNumber: 1,
@@ -16,6 +19,8 @@ class App extends Component {
     id: null,
     cards: null,
     notLoaded: true,
+    genres: null,
+    DidMount: false,
   };
 
   changeNotLoadedTrue = () => {
@@ -53,12 +58,36 @@ class App extends Component {
       });
   };
 
+  setSession = () => {
+    this.clientSession.getSession().then((response) => {
+      console.log(response);
+      this.setState({ renderContent: true });
+    });
+  };
+
+  setGenres = () => {
+    let genres = new GetGenre().getGenres().then((response) => {
+      console.log("feched genres", response);
+      return response;
+    });
+    return genres;
+  };
+
   setMovies = () => {
     let newMovies = new GetData(
       `https://api.themoviedb.org/3/search/movie?query=${this.state.urlPart}&include_adult=false&language=en-US&page=${this.state.pageNumber}`
     );
     console.log("this url", newMovies.url);
     return newMovies;
+  };
+
+  changeGenres = () => {
+    this.setGenres().then((response) => {
+      console.log("changeGenres", response.genres);
+      this.setState({ genres: response.genres }, () => {
+        console.log("this genres", this.state.genres);
+      });
+    });
   };
 
   changeUrlPart = (urlPart) => {
@@ -70,9 +99,14 @@ class App extends Component {
   };
 
   componentDidMount() {
-    let clientSession = new ClientSession().getSession().then((response) => {
-      this.setState({ renderContent: true });
-    });
+    this.setState({ DidMount: true });
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.DidMount !== this.state.DidMount) {
+      this.setSession();
+      this.changeGenres();
+    }
   }
 
   render() {
@@ -85,6 +119,7 @@ class App extends Component {
               pageNumber: this.state.pageNumber,
               cards: this.state.cards,
               notLoaded: this.state.notLoaded,
+              genres: this.state.genres,
               changeUrlPart: this.changeUrlPart,
               changePageNumber: this.changePageNumber,
               changeCards: this.changeCards,
@@ -95,13 +130,10 @@ class App extends Component {
               <SearchPanel />
             </div>
             <div className="AppCardlist">
-              <CardList
-                urlPart={this.state.urlPart}
-                pageNumber={this.state.pageNumber}
-              />
+              <CardList />
             </div>
             <div className="AppPagination">
-              <PaginationComponent changePageNumber={this.changePageNumber} />
+              <PaginationComponent />
             </div>
           </MyContext.Provider>
         </div>
