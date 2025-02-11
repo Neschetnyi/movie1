@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Pagination } from "antd";
+import MyContext from "../MyContext/MyContext";
 
 class PaginationComponent extends Component {
   state = {
@@ -15,7 +16,7 @@ class PaginationComponent extends Component {
       },
       () => {
         console.log(this.state.current);
-        this.props.changePageNumber(this.state.current);
+        this.context.changePageNumber(this.state.current);
       }
     );
   };
@@ -30,5 +31,7 @@ class PaginationComponent extends Component {
     );
   }
 }
+
+PaginationComponent.contextType = MyContext;
 
 export default PaginationComponent;
