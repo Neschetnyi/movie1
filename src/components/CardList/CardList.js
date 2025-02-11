@@ -27,16 +27,6 @@ class CardList extends Component {
     return newMovies;
   }
 
-  takeMovies() {
-    this.setMovies()
-      .getAllMovies()
-      .catch((err) => {
-        console.log("error is: ", err.message);
-        this.setState({ onError: true });
-        this.setState({ errorMassage: err.message });
-        this.setState({ errorName: err.name });
-      });
-  }
   changeState() {
     this.setMovies()
       .getAllMovies()
@@ -100,8 +90,7 @@ class CardList extends Component {
         },
         () => {
           console.log("loaded is true this set State");
-          this.setMovies();
-          this.takeMovies();
+
           this.changeState();
           this.setState({ prevUrl: this.context.urlPart });
           this.setState({ prevPage: this.context.pageNumber });
