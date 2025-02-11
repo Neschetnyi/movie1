@@ -15,6 +15,8 @@ class CardList extends Component {
     notloaded: true,
     onlineStatus: false,
     error: null,
+    prevUrl: "a",
+    prevPage: 1,
   };
 
   setMovies() {
@@ -43,9 +45,15 @@ class CardList extends Component {
           this.setState({ cards: value.results });
         }
       })
+      .catch((err) => {
+        console.log("error is: ", err.message);
+        this.setState({ onError: true });
+        this.setState({ errorMassage: err.message });
+        this.setState({ errorName: err.name });
+      })
       .then(() => {
         this.setState({ notloaded: false });
-        console.log("loaded is true");
+        console.log("loaded is true in changeState");
       })
       .catch((err) => {
         console.log("error is: ", err.message);
@@ -74,9 +82,6 @@ class CardList extends Component {
   };
 
   componentDidMount() {
-    this.setMovies();
-
-    this.takeMovies();
     this.changeState();
     this.setState({ didMount: true });
 
@@ -84,18 +89,24 @@ class CardList extends Component {
     window.addEventListener("offline", this.handleOffline);
   }
 
-  componentDidUpdate(prevProps) {
-    console.log("componentDidUpdate");
-    console.log("page is ", this.context.pageNumber);
+  componentDidUpdate(prevProps, prevState) {
     if (
-      prevProps.urlPart !== this.context.urlPart ||
-      prevProps.pageNumber !== this.context.pageNumber
+      prevState.prevUrl !== this.context.urlPart ||
+      prevState.prevPage !== this.context.pageNumber
     ) {
-      this.setState({ notloaded: true }, () => {
-        this.setMovies();
-        this.takeMovies();
-        this.changeState();
-      });
+      this.setState(
+        {
+          notloaded: true,
+        },
+        () => {
+          console.log("loaded is true this set State");
+          this.setMovies();
+          this.takeMovies();
+          this.changeState();
+          this.setState({ prevUrl: this.context.urlPart });
+          this.setState({ prevPage: this.context.pageNumber });
+        }
+      );
     }
   }
 
