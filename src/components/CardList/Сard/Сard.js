@@ -2,6 +2,7 @@ import React from "react";
 import "./Card.css";
 import { Tag } from "antd";
 import cardBG from "./cardBG.png";
+import { Rate } from "antd";
 
 function Card({ card }) {
   let date = new Date();

@@ -6,11 +6,13 @@ import TabList from "./TabList/TabList";
 import GetData from "../servises/GetData";
 import MyContext from "./MyContext/MyContext";
 import "./App.css";
+import ClientSession from "../servises/ClientSession";
 
 class App extends Component {
   state = {
     urlPart: "a",
     pageNumber: 1,
+    renderContent: false,
   };
 
   changeUrlPart = (urlPart) => {
@@ -22,35 +24,42 @@ class App extends Component {
   };
 
   componentDidMount() {
-    this.setState({ Data: this.state.Data });
+    let clientSession = new ClientSession();
+    clientSession.getSession().then((response) => {
+      this.setState({ renderContent: true });
+    });
   }
   render() {
-    return (
-      <div className="App">
-        <MyContext.Provider
-          value={{
-            urlPart: this.state.urlPart,
-            pageNumber: this.state.pageNumber,
-            Data: this.state.Data,
-            changeUrlPart: this.changeUrlPart,
-            changePageNumber: this.changePageNumber,
-          }}
-        >
-          <div className="AppSearch">
-            <SearchPanel />
-          </div>
-          <div className="AppCardlist">
-            <CardList
-              urlPart={this.state.urlPart}
-              pageNumber={this.state.pageNumber}
-            />
-          </div>
-          <div className="AppPagination">
-            <PaginationComponent changePageNumber={this.changePageNumber} />
-          </div>
-        </MyContext.Provider>
-      </div>
-    );
+    if (this.state.renderContent) {
+      return (
+        <div className="App">
+          <MyContext.Provider
+            value={{
+              urlPart: this.state.urlPart,
+              pageNumber: this.state.pageNumber,
+              Data: this.state.Data,
+              changeUrlPart: this.changeUrlPart,
+              changePageNumber: this.changePageNumber,
+            }}
+          >
+            <div className="AppSearch">
+              <SearchPanel />
+            </div>
+            <div className="AppCardlist">
+              <CardList
+                urlPart={this.state.urlPart}
+                pageNumber={this.state.pageNumber}
+              />
+            </div>
+            <div className="AppPagination">
+              <PaginationComponent changePageNumber={this.changePageNumber} />
+            </div>
+          </MyContext.Provider>
+        </div>
+      );
+    } else {
+      return <div>Loading...</div>;
+    }
   }
 }
 
