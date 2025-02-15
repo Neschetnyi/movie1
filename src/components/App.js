@@ -13,7 +13,7 @@ class App extends Component {
   clientSession = new ClientSession();
 
   state = {
-    urlPart: "a",
+    urlPart: "",
     pageNumber: 1,
     renderContent: false,
     id: null,
@@ -21,6 +21,33 @@ class App extends Component {
     notLoaded: true,
     genres: null,
     DidMount: false,
+    totalPages: 0,
+  };
+
+  setMovies = () => {
+    return new GetData(this.state.urlPart, this.state.pageNumber);
+  };
+
+  Pages = () => {
+    console.log("totalPages context", this.state.totalPages);
+    let res = 0;
+    if (
+      this.state.cards !== null &&
+      this.state.cards.toString() !== "undefined"
+    ) {
+      console.log(
+        "totalPages context",
+        this.state.cards.length,
+        this.state.cards.toString()
+      );
+      if (this.state.cards.length % 20 === 0) {
+        res = this.state.cards.length / 20;
+      } else {
+        res = this.state.cards.length / 20 + 1;
+      }
+
+      this.setState({ totalPages: res });
+    }
   };
 
   changeNotLoadedTrue = () => {
@@ -38,7 +65,7 @@ class App extends Component {
       .getAllMovies()
       .then((value) => {
         if (typeof value === "object") {
-          this.setState({ cards: value.results });
+          this.setState({ cards: value.results }, () => {});
         }
 
         this.changeNotLoadedFalse();
@@ -120,10 +147,12 @@ class App extends Component {
               cards: this.state.cards,
               notLoaded: this.state.notLoaded,
               genres: this.state.genres,
+              totalPages: this.state.totalPages,
               changeUrlPart: this.changeUrlPart,
               changePageNumber: this.changePageNumber,
               changeCards: this.changeCards,
               setMovies: this.setMovies,
+              Pages: this.Pages,
             }}
           >
             <div className="AppSearch">

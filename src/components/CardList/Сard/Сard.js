@@ -5,11 +5,15 @@ import cardBG from "./cardBG.png";
 import RateMovie from "./RateMovie/RateMovie";
 import AverageRaiting from "./AverageRaiting/AverageRaiting";
 
-function Card({ card }) {
+function Card({ card, genres }) {
   console.log(
-    `single card ${card.title} card.title.lenght: ${card.title.length}`,
-    card
+    `single card ${card.title} card.title.lenght: ${card.title.length} card genres: ${genres}`,
+    card,
+    genres
   );
+  let tagArr = genres.map((genre) => {
+    return <Tag>{genre}</Tag>;
+  });
 
   let heightTitleRegulation = () => {
     if (card.title.length > 35) {
@@ -19,7 +23,7 @@ function Card({ card }) {
     }
   };
 
-  let date = new Date();
+  let date = new Date(card.release_date);
 
   let cardPoster = `https://image.tmdb.org/t/p/w500${card.backdrop_path}`;
   if (card.backdrop_path === null) {
@@ -43,10 +47,7 @@ function Card({ card }) {
           </div>
 
           <div className="Date">{date.toLocaleDateString()}</div>
-          <div className="Tags">
-            <Tag>Action</Tag>
-            <Tag>Drama</Tag>
-          </div>
+          <div className="Tags">{tagArr}</div>
 
           <div className="Text" style={{ height: heightTitleRegulation() }}>
             {card.overview}

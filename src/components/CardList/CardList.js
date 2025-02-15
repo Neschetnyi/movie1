@@ -53,6 +53,7 @@ class CardList extends Component {
       prevState.prevPage !== this.context.pageNumber
     ) {
       this.context.changeCards();
+      this.context.Pages();
       this.setState({ prevUrl: this.context.urlPart });
       this.setState({ prevPage: this.context.pageNumber });
     }
@@ -69,10 +70,19 @@ class CardList extends Component {
       if (this.context.cards.length !== 0) {
         for (let i = 0; i < this.context.cards.length; i++) {
           if (this.context.cards[i] !== undefined) {
+            let genresArr = this.context.genres.map((el, index, array) => {
+              let newEl = null;
+              if (this.context.cards[i].genre_ids.includes(el.id)) {
+                newEl = el.name;
+              }
+              return newEl;
+            });
+            genresArr = genresArr.filter((el) => el !== null);
             cardArr.push(
               <Card
                 key={this.context.cards[i].id}
                 card={this.context.cards[i]}
+                genres={genresArr}
               />
             );
           }

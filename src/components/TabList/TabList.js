@@ -1,5 +1,8 @@
 import React, { Component } from "react";
 import { Tabs } from "antd";
+import CardList from "../CardList/CardList";
+import SearchPanel from "../SearchPanel/SearchPanel";
+import PaginationComponent from "../PaginationComponent/PaginationComponent";
 
 class TabList extends Component {
   render() {
@@ -10,7 +13,7 @@ class TabList extends Component {
     }
     return (
       <Tabs defaultActiveKey="1" onChange={callback}>
-        <TabPane tab="Tab 1" key="1">
+        <TabPane tab="Search" key="1">
           Content of Tab Pane 1
         </TabPane>
         <TabPane tab="Tab 2" key="2">

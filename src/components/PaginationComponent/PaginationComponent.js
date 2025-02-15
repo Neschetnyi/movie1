@@ -8,18 +8,6 @@ class PaginationComponent extends Component {
     totalPages: null,
   };
 
-  totalPages = () => {
-    console.log("Pagination context", this.context);
-    let res = 0;
-    if (this.context.cards !== null) {
-      this.context.cards.length % 20 === null
-        ? (res = this.this.context.cards.length / 20)
-        : (res = this.this.context.cards.length / 20 + 1);
-
-      this.setState({ totalPages: res });
-    }
-  };
-
   onChange = (page) => {
     console.log(page);
 
@@ -35,7 +23,19 @@ class PaginationComponent extends Component {
   };
 
   componentDidMount() {
-    this.totalPages();
+    this.updateTotalPages();
+  }
+
+  updateTotalPages = () => {
+    this.setState({
+      totalPages: this.context.totalPages,
+    });
+  };
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.totalPages !== this.context.totalPages) {
+      this.updateTotalPages();
+    }
   }
 
   render() {
@@ -43,7 +43,7 @@ class PaginationComponent extends Component {
       <Pagination
         current={this.state.current}
         onChange={this.onChange}
-        total={this.state.totalPages}
+        total={100}
       />
     );
   }
