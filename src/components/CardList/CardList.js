@@ -65,6 +65,12 @@ class CardList extends Component {
   }
 
   render() {
+    let cardsToRender = [];
+    if (this.props.activeTab === "Search") {
+      cardsToRender = this.context.cards;
+    } else {
+      cardsToRender = [];
+    }
     let cardArr = [];
     if (this.context.cards !== null) {
       if (this.context.cards.length !== 0) {

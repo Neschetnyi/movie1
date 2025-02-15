@@ -78,7 +78,9 @@ class App extends Component {
     this.clientSession.getSession().then((response) => {
       console.log(response);
       this.setState({ renderContent: true });
-      this.setState({ guestSessionId: response.guest_session_id });
+      this.setState({ guestSessionId: response.guest_session_id }, () => {
+        console.log("guestSessionId!!!", this.state.guestSessionId);
+      });
     });
   };
 

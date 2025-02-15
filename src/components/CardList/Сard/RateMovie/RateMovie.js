@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Rate } from "antd";
+import AddRaiting from "../../../../servises/addRaiting";
 
 class RateMovie extends Component {
   state = {
@@ -7,7 +8,9 @@ class RateMovie extends Component {
   };
 
   handleChange = (value) => {
-    this.setState({ value });
+    this.setState({ value }, () => {
+      AddRaiting(this.state.value, this.props.guestSessionId, this.props.id);
+    });
   };
 
   render() {

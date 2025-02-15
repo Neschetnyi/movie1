@@ -15,7 +15,7 @@ function AddRaiting(raiting, sessionId, movieId) {
     options
   )
     .then((res) => res.json())
-    .then((res) => console.log(res))
+    .then((res) => console.log("response after adding raiting:", raiting, res))
     .catch((err) => console.error(err));
 }
 

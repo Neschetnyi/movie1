@@ -44,6 +44,8 @@ class PaginationComponent extends Component {
         current={this.state.current}
         onChange={this.onChange}
         total={this.state.totalPages}
+        showSizeChanger={false}
+        showQuickJumper
       />
     );
   }

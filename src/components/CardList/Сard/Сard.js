@@ -57,7 +57,10 @@ class Card extends Component {
             </div>
           </div>
           <div className="Rating">
-            <RateMovie />
+            <RateMovie
+              id={card.id}
+              guestSessionId={this.context.guestSessionId}
+            />
           </div>
         </div>
       </div>
