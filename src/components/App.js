@@ -1,7 +1,4 @@
 import React, { Component } from "react";
-import CardList from "./CardList/CardList";
-import SearchPanel from "./SearchPanel/SearchPanel";
-import PaginationComponent from "./PaginationComponent/PaginationComponent";
 import TabList from "./TabList/TabList";
 import GetData from "../servises/GetData";
 import MyContext from "./MyContext/MyContext";
@@ -22,32 +19,23 @@ class App extends Component {
     genres: null,
     DidMount: false,
     totalPages: 0,
-  };
-
-  setMovies = () => {
-    return new GetData(this.state.urlPart, this.state.pageNumber);
+    guestSessionId: null,
   };
 
   Pages = () => {
-    console.log("totalPages context", this.state.totalPages);
-    let res = 0;
-    if (
-      this.state.cards !== null &&
-      this.state.cards.toString() !== "undefined"
-    ) {
-      console.log(
-        "totalPages context",
-        this.state.cards.length,
-        this.state.cards.toString()
-      );
-      if (this.state.cards.length % 20 === 0) {
-        res = this.state.cards.length / 20;
-      } else {
-        res = this.state.cards.length / 20 + 1;
-      }
-
-      this.setState({ totalPages: res });
-    }
+    this.setMovies()
+      .getPages()
+      .then((value) => {
+        this.setState({ totalPages: value }, () => {
+          console.log("totalPages after fetching", this.state.totalPages);
+        });
+      })
+      .catch((err) => {
+        console.log("error is: ", err.message);
+        this.setState({ onError: true });
+        this.setState({ errorMassage: err.message });
+        this.setState({ errorName: err.name });
+      });
   };
 
   changeNotLoadedTrue = () => {
@@ -83,12 +71,14 @@ class App extends Component {
         this.setState({ errorMassage: err.message });
         this.setState({ errorName: err.name });
       });
+    this.Pages();
   };
 
   setSession = () => {
     this.clientSession.getSession().then((response) => {
       console.log(response);
       this.setState({ renderContent: true });
+      this.setState({ guestSessionId: response.guest_session_id });
     });
   };
 
@@ -104,7 +94,7 @@ class App extends Component {
     let newMovies = new GetData(
       `https://api.themoviedb.org/3/search/movie?query=${this.state.urlPart}&include_adult=false&language=en-US&page=${this.state.pageNumber}`
     );
-    console.log("this url", newMovies.url);
+
     return newMovies;
   };
 
@@ -153,17 +143,10 @@ class App extends Component {
               changeCards: this.changeCards,
               setMovies: this.setMovies,
               Pages: this.Pages,
+              guestSessionId: this.state.guestSessionId,
             }}
           >
-            <div className="AppSearch">
-              <SearchPanel />
-            </div>
-            <div className="AppCardlist">
-              <CardList />
-            </div>
-            <div className="AppPagination">
-              <PaginationComponent />
-            </div>
+            <TabList />
           </MyContext.Provider>
         </div>
       );

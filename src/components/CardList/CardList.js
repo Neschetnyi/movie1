@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import Card from "./Сard/Сard";
 import "./CardList.css";
-import GetData from "../../servises/GetData";
 import { Spin } from "antd";
 import { Alert } from "antd";
 import MyContext from "../MyContext/MyContext";
@@ -53,9 +52,10 @@ class CardList extends Component {
       prevState.prevPage !== this.context.pageNumber
     ) {
       this.context.changeCards();
-      this.context.Pages();
+
       this.setState({ prevUrl: this.context.urlPart });
       this.setState({ prevPage: this.context.pageNumber });
+      console.log("totalPages", this.context.totalPages);
     }
   }
 

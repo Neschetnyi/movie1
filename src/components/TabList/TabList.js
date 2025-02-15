@@ -12,11 +12,19 @@ class TabList extends Component {
       console.log(key);
     }
     return (
-      <Tabs defaultActiveKey="1" onChange={callback}>
+      <Tabs defaultActiveKey="1" onChange={callback} centered>
         <TabPane tab="Search" key="1">
-          Content of Tab Pane 1
+          <div className="AppSearch">
+            <SearchPanel />
+          </div>
+          <div className="AppCardlist">
+            <CardList />
+          </div>
+          <div className="AppPagination">
+            <PaginationComponent />
+          </div>
         </TabPane>
-        <TabPane tab="Tab 2" key="2">
+        <TabPane tab="Raited" key="2">
           Content of Tab Pane 2
         </TabPane>
       </Tabs>

@@ -14,6 +14,7 @@ class GetData {
 
   async getResources(url, options) {
     let res = await fetch(url, options).then((res) => res.json());
+    console.log("search response: ", res);
 
     return res;
   }
@@ -21,6 +22,15 @@ class GetData {
   async getAllMovies() {
     let allMovies = await this.getResources(this.url, this.options);
     return allMovies;
+  }
+
+  async getPages() {
+    let pages = await this.getResources(this.url, this.options).then(
+      (res) => res.total_pages
+    );
+    console.log("fetching number of pages: ", pages);
+
+    return pages;
   }
 }
 
