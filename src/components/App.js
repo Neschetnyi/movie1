@@ -20,6 +20,7 @@ class App extends Component {
     DidMount: false,
     totalPages: 0,
     guestSessionId: null,
+    ratedMoviesArray: [],
   };
 
   Pages = () => {

@@ -9,7 +9,13 @@ class RateMovie extends Component {
 
   handleChange = (value) => {
     this.setState({ value }, () => {
-      AddRaiting(this.state.value, this.props.guestSessionId, this.props.id);
+      AddRaiting(
+        this.state.value,
+        this.props.guestSessionId,
+        this.props.id
+      ).then((res) => {
+        console.log("after raiting");
+      });
     });
   };
 
