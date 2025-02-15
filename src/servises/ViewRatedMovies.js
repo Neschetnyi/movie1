@@ -9,12 +9,14 @@ async function ViewRatedMovies(sessionId) {
   };
 
   let response = await fetch(
-    "https://api.themoviedb.org/3/guest_session/51d96cfd95a1abd9e9ed0a610e19a01d/rated/movies?language=en-US&page=1&sort_by=created_at.asc",
+    `https://api.themoviedb.org/3/guest_session/${sessionId}/rated/movies?language=en-US&page=1&sort_by=created_at.asc`,
     options
   )
     .then((res) => res.json())
-    .then((res) => console.log(res))
+
     .catch((err) => console.error(err));
 
   return response;
 }
+
+export default ViewRatedMovies;

@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { Rate } from "antd";
 import AddRaiting from "../../../../servises/addRaiting";
+import MyContext from "../../../MyContext/MyContext";
+import ViewRatedMovies from "../../../../servises/ViewRatedMovies";
 
 class RateMovie extends Component {
   state = {
@@ -15,6 +17,10 @@ class RateMovie extends Component {
         this.props.id
       ).then((res) => {
         console.log("after raiting");
+        ViewRatedMovies(this.context.guestSessionId).then((res) => {
+          console.log("after ViewRatedMovies", res.results);
+          this.context.changeRatedMoviesArray(res.results);
+        });
       });
     });
   };
@@ -35,5 +41,7 @@ class RateMovie extends Component {
     );
   }
 }
+
+RateMovie.contextType = MyContext;
 
 export default RateMovie;

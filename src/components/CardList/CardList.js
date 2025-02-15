@@ -69,16 +69,17 @@ class CardList extends Component {
     if (this.props.activeTab === "Search") {
       cardsToRender = this.context.cards;
     } else {
-      cardsToRender = [];
+      cardsToRender = this.context.ratedMoviesArray;
+      console.log("tab is rated", cardsToRender);
     }
     let cardArr = [];
-    if (this.context.cards !== null) {
-      if (this.context.cards.length !== 0) {
-        for (let i = 0; i < this.context.cards.length; i++) {
-          if (this.context.cards[i] !== undefined) {
+    if (cardsToRender !== null && cardsToRender !== undefined) {
+      if (cardsToRender.length !== 0) {
+        for (let i = 0; i < cardsToRender.length; i++) {
+          if (cardsToRender[i] !== undefined) {
             let genresArr = this.context.genres.map((el, index, array) => {
               let newEl = null;
-              if (this.context.cards[i].genre_ids.includes(el.id)) {
+              if (cardsToRender[i].genre_ids.includes(el.id)) {
                 newEl = el.name;
               }
               return newEl;
@@ -86,8 +87,8 @@ class CardList extends Component {
             genresArr = genresArr.filter((el) => el !== null);
             cardArr.push(
               <Card
-                key={this.context.cards[i].id}
-                card={this.context.cards[i]}
+                key={cardsToRender[i].id}
+                card={cardsToRender[i]}
                 genres={genresArr}
               />
             );
@@ -97,7 +98,7 @@ class CardList extends Component {
     }
 
     if (this.state.onError) {
-      console.log("contentRender error", this.state.cards);
+      console.log("contentRender error", cardsToRender);
       return (
         <div className="Alert">
           <Alert
@@ -108,7 +109,7 @@ class CardList extends Component {
         </div>
       );
     } else if (this.state.onlineStatus) {
-      console.log("contentRender onlineStatus", this.context.cards);
+      console.log("contentRender onlineStatus", cardsToRender);
       return (
         <div className="Alert">
           <Alert
@@ -119,11 +120,11 @@ class CardList extends Component {
         </div>
       );
     } else if (
-      Array.isArray(this.context.cards) &&
-      this.context.cards.length === 0 &&
+      Array.isArray(cardsToRender) &&
+      cardsToRender.length === 0 &&
       this.context.urlPart !== ""
     ) {
-      console.log("contentRender arr = 0", this.context.cards);
+      console.log("contentRender arr = 0", cardsToRender);
       return (
         <div className="Alert">
           <Alert
@@ -134,17 +135,17 @@ class CardList extends Component {
         </div>
       );
     } else if (this.context.notLoaded) {
-      console.log("contentRender notloaded", this.context.cards);
+      console.log("contentRender notloaded", cardsToRender);
       return (
         <div className="Alert">
           <Spin size="large" />
         </div>
       );
-    } else if (this.context.cards !== null && this.context.urlPart !== "") {
-      console.log("contentRender cards", this.context.cards);
+    } else if (cardsToRender !== null && this.context.urlPart !== "") {
+      console.log("contentRender cards", cardsToRender);
       return <div className="CardList">{cardArr}</div>;
     } else {
-      console.log("contentRender default", this.context.cards);
+      console.log("contentRender default", cardsToRender);
       return (
         <div className="Alert">
           <Alert

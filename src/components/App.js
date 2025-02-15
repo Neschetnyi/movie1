@@ -23,6 +23,13 @@ class App extends Component {
     ratedMoviesArray: [],
   };
 
+  changeRatedMoviesArray = (value) => {
+    this.setState(
+      { ratedMoviesArray: value },
+      console.log("ratedMoviesArray", value)
+    );
+  };
+
   Pages = () => {
     this.setMovies()
       .getPages()
@@ -147,6 +154,8 @@ class App extends Component {
               setMovies: this.setMovies,
               Pages: this.Pages,
               guestSessionId: this.state.guestSessionId,
+              changeRatedMoviesArray: this.changeRatedMoviesArray,
+              ratedMoviesArray: this.state.ratedMoviesArray,
             }}
           >
             <TabList />
