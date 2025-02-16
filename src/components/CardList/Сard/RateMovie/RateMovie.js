@@ -21,22 +21,13 @@ class RateMovie extends Component {
           this.props.id
         ).then((res) => {
           console.log("after raiting", this.context.guestSessionId);
-          ViewRatedMovies(this.context.guestSessionId)
-            .then((res) => {
-              console.log("after ViewRatedMovies", res.results);
-              this.context.changeRatedMoviesArray(res.results);
-              return Promise.resolve();
-            })
-            .then(() => {
-              this.context.changeAddRaitinginProcessFalse();
-              this.context.changeRaitingLoadedTrue();
-              return Promise.resolve();
-            })
-            .then(() => {
-              console.log(
-                `loading flags: addRaitinginProcess: ${this.context.addRaitinginProcess}, raitingLoaded: ${this.context.raitingLoaded}`
-              );
-            });
+          console.log("after ViewRatedMovies", res.results);
+          this.context.changeRatedMoviesArray(res.results);
+          this.context.changeAddRaitinginProcessFalse();
+          this.context.changeRaitingLoadedTrue();
+          console.log(
+            `loading flags: addRaitinginProcess: ${this.context.addRaitinginProcess}, raitingLoaded: ${this.context.raitingLoaded}`
+          );
         });
       });
     } else {
