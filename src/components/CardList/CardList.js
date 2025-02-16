@@ -35,7 +35,7 @@ class CardList extends Component {
   };
 
   componentDidMount() {
-    console.log("CardList did mount ", this.context);
+    console.log("CardList did mount ");
 
     this.context.changeCards();
     this.setState({ didMount: true });
@@ -45,17 +45,18 @@ class CardList extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    console.log("CardList did update ", this.context);
+    console.log("CardList did update ");
 
     if (
       prevState.prevUrl !== this.context.urlPart ||
       prevState.prevPage !== this.context.pageNumber
     ) {
-      this.context.changeCards();
+      console.log("CardList did update this.context.cards", this.context.cards);
+
+      // this.context.changeCards();
 
       this.setState({ prevUrl: this.context.urlPart });
       this.setState({ prevPage: this.context.pageNumber });
-      console.log("totalPages", this.context.totalPages);
     }
   }
 

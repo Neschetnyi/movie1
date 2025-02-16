@@ -17,7 +17,7 @@ class TabList extends Component {
       this.setState({ activeTab: "Raited" });
     }
     this.setState({ activeKey: key });
-    console.log("changing Tab", this.state.activeTab, this.state.activeKey);
+    console.log("changing Tab");
   };
 
   render() {

@@ -58,25 +58,27 @@
   font-size: 22px;
   font-weight: 500;
   color: #000;
-  max-height: 80px;
+  height: fit-content;
   padding-top: 15px;
+  padding-bottom: 0;
   margin: 0;
   overflow: hidden;
 }
 
 .Date {
   margin: 0;
-
-  padding-top: 15px;
+  padding-top: 8px;
   font-size: 12px;
   color: #999;
 }
 
 .Tags {
-  padding-top: 10px;
+  padding-top: 5px;
+  padding-bottom: 3px;
   margin: 0;
   font-size: 14px;
-
+  line-height: 30px;
+  max-height: 80px;
   color: #999;
 }
 
@@ -84,7 +86,7 @@
   max-height: 100px;
   margin: 0;
   overflow: hidden;
-  padding-top: 10px;
+  padding-top: 0px;
   font-size: 12px;
   line-height: 25px;
   color: #000;

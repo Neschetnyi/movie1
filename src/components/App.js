@@ -55,31 +55,46 @@ class App extends Component {
   };
 
   changeCards = () => {
-    this.changeNotLoadedTrue();
-    console.log("NotLoaded", this.state.notLoaded);
-    this.setMovies()
-      .getAllMovies()
-      .then((value) => {
-        if (typeof value === "object") {
-          this.setState({ cards: value.results }, () => {});
-        }
+    if (this.state.urlPart === "") {
+      this.changeNotLoadedFalse();
+      console.log(
+        "NotLoaded set to 'false' in the end of changeCards function",
+        this.state.notLoaded
+      );
+      return;
+    } else {
+      this.changeNotLoadedTrue();
+      console.log(
+        "NotLoaded set to 'true' in the start of changeCards function",
+        this.state.notLoaded
+      );
+      this.setMovies()
+        .getAllMovies()
+        .then((value) => {
+          if (typeof value === "object") {
+            this.setState({ cards: value.results }, () => {});
+          }
 
-        this.changeNotLoadedFalse();
-        console.log("NotLoaded", this.state.notLoaded);
-      })
-      .catch((err) => {
-        console.log("error is: ", err.message);
-        this.setState({ onError: true });
-        this.setState({ errorMassage: err.message });
-        this.setState({ errorName: err.name });
-      })
-      .catch((err) => {
-        console.log("error is: ", err.message);
-        this.setState({ onError: true });
-        this.setState({ errorMassage: err.message });
-        this.setState({ errorName: err.name });
-      });
-    this.Pages();
+          this.changeNotLoadedFalse();
+          console.log(
+            "NotLoaded set to 'false' in the end of changeCards function",
+            this.state.notLoaded
+          );
+        })
+        .catch((err) => {
+          console.log("error is: ", err.message);
+          this.setState({ onError: true });
+          this.setState({ errorMassage: err.message });
+          this.setState({ errorName: err.name });
+        })
+        .catch((err) => {
+          console.log("error is: ", err.message);
+          this.setState({ onError: true });
+          this.setState({ errorMassage: err.message });
+          this.setState({ errorName: err.name });
+        });
+      this.Pages();
+    }
   };
 
   setSession = () => {
@@ -118,11 +133,17 @@ class App extends Component {
   };
 
   changeUrlPart = (urlPart) => {
-    this.setState({ urlPart: urlPart });
+    this.setState({ urlPart: urlPart }, () => {
+      console.log("urlPart is changed and now is:", this.state.urlPart);
+      this.changeCards();
+    });
   };
 
   changePageNumber = (pageNumber) => {
-    this.setState({ pageNumber: pageNumber });
+    this.setState({ pageNumber: pageNumber }, () => {
+      console.log("urlPart", this.state.urlPart);
+      this.changeCards();
+    });
   };
 
   componentDidMount() {

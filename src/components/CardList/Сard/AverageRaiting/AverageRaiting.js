@@ -8,7 +8,6 @@ class AverageRaiting extends Component {
   };
 
   render() {
-    console.log("AverageRaiting props", this.props);
     let color = "";
     if (this.props.vote_average >= 7) {
       color = this.state.colors[3];
