@@ -26,10 +26,7 @@ class TabList extends Component {
     const { TabPane } = Tabs;
     let raitedTabContent = this.context.raitingLoaded ? (
       <div className="AppCardlist">
-        <CardList
-          activeTab={this.state.activeTab}
-          cards={this.context.ratedMoviesArray}
-        />
+        <CardList cards={this.props.ratedMoviesArray} />
       </div>
     ) : (
       <div
@@ -53,10 +50,7 @@ class TabList extends Component {
             <SearchPanel />
           </div>
           <div className="AppCardlist">
-            <CardList
-              activeTab={this.state.activeTab}
-              cards={this.context.cards}
-            />
+            <CardList cards={this.props.cards} />
           </div>
           <div className="AppPagination">
             <PaginationComponent />
@@ -72,7 +66,5 @@ class TabList extends Component {
     );
   }
 }
-
-TabList.contextType = MyContext;
 
 export default TabList;

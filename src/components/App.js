@@ -5,7 +5,6 @@ import MyContext from "./MyContext/MyContext";
 import "./App.css";
 import ClientSession from "../servises/ClientSession";
 import GetGenre from "../servises/GetGenre";
-import AddRaiting from "../servises/addRaiting";
 
 class App extends Component {
   clientSession = new ClientSession();
@@ -204,7 +203,10 @@ class App extends Component {
               changeRaitingLoadedFalse: this.changeRaitingLoadedFalse,
             }}
           >
-            <TabList />
+            <TabList
+              ratedMoviesArray={this.state.ratedMoviesArray}
+              cards={this.state.cards}
+            />
           </MyContext.Provider>
         </div>
       );

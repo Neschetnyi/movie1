@@ -28,6 +28,8 @@ class Card extends Component {
   };
 
   componentDidMount() {
+    console.log("Card did Mount state before changing", this.state);
+
     let contentHeight = this.contentRef.current
       ? this.contentRef.current.offsetHeight
       : 0;
