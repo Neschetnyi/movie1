@@ -24,7 +24,7 @@ class PaginationComponent extends Component {
 
   updateTotalPages = () => {
     this.setState({
-      totalPages: this.props.totalPages,
+      totalPages: Number(this.props.totalPages),
     });
   };
 
@@ -39,6 +39,9 @@ class PaginationComponent extends Component {
     ) {
       console.log("totalPages is:", this.props.totalPages);
       console.log("prev totalPages is:", prevState.totalPages);
+      this.setState({
+        totalPages: Number(this.props.totalPages),
+      });
       this.updateTotalPages();
     }
   }
@@ -56,6 +59,6 @@ class PaginationComponent extends Component {
   }
 }
 
-PaginationComponent.contextType = MyContext;
+// PaginationComponent.contextType = MyContext;
 
 export default PaginationComponent;

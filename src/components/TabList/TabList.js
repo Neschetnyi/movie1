@@ -21,6 +21,21 @@ class TabList extends Component {
     console.log("changing Tab");
   };
 
+  componentDidUpdate(prevProps, prevState) {
+    if (
+      prevState.activeKey !== this.state.activeKey ||
+      prevProps.totalPagesOfRaitedMovies !== this.props.totalPagesOfRaitedMovies
+    ) {
+      this.props.changeTotalPagesOfRaitedMovies(
+        this.props.totalPagesOfRaitedMovies
+      );
+      console.log(
+        "in tab this.props.totalPagesOfRaitedMovies",
+        this.props.totalPagesOfRaitedMovies
+      );
+    }
+  }
+
   render() {
     const { TabPane } = Tabs;
     console.log("TabList render", this.props.ratedMoviesArray);
@@ -108,7 +123,7 @@ class TabList extends Component {
             />
           </div>
         </TabPane>
-        <TabPane tab="Raited" key="2">
+        <TabPane tab="Raited" key={"2"}>
           {raitedTabContent}
           <div className="AppPagination">
             <PaginationComponent
