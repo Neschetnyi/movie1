@@ -102,13 +102,19 @@ class TabList extends Component {
             />
           </div>
           <div className="AppPagination">
-            <PaginationComponent />
+            <PaginationComponent
+              changePageNumber={this.props.changePageNumber}
+              totalPages={this.props.totalPages}
+            />
           </div>
         </TabPane>
         <TabPane tab="Raited" key="2">
           {raitedTabContent}
           <div className="AppPagination">
-            <PaginationComponent />
+            <PaginationComponent
+              changePageNumber={this.props.changePageOfRaitedMovies}
+              totalPages={this.props.totalPagesOfRaitedMovies}
+            />
           </div>
         </TabPane>
       </Tabs>

@@ -1,4 +1,4 @@
-async function AddRaiting(raiting, sessionId, movieId) {
+async function AddRaiting(raiting, sessionId, movieId, page) {
   const options = {
     method: "POST",
     headers: {

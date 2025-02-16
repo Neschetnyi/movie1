@@ -27,8 +27,10 @@ class RateMovie extends Component {
             return;
           }
           console.log("after raiting", this.context.guestSessionId);
-          console.log("after ViewRatedMovies", res.results);
+          console.log("after ViewRatedMovies", res);
           this.context.changeRatedMoviesArray(res.results);
+          this.context.changePageOfRaitedMovies(res.page);
+          this.context.changeTotalPagesOfRaitedMovies(res.total_pages);
           this.context.changeAddRaitinginProcessFalse();
           this.context.changeRaitingLoadedTrue();
           console.log(

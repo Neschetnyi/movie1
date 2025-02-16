@@ -23,6 +23,16 @@ class App extends Component {
     ratedMoviesArray: [],
     addRaitinginProcess: false,
     raitingLoaded: false,
+    pageOfRaitedMovies: 1,
+    totalPagesOfRaitedMovies: 1,
+  };
+
+  changePageOfRaitedMovies = (value) => {
+    this.setState({ pageOfRaitedMovies: value });
+  };
+
+  changeTotalPagesOfRaitedMovies = (value) => {
+    this.setState({ totalPagesOfRaitedMovies: value });
   };
 
   changeAddRaitinginProcessTrue = () => {
@@ -201,6 +211,9 @@ class App extends Component {
                 this.changeAddRaitinginProcessFalse,
               changeRaitingLoadedTrue: this.changeRaitingLoadedTrue,
               changeRaitingLoadedFalse: this.changeRaitingLoadedFalse,
+              changePageOfRaitedMovies: this.changePageOfRaitedMovies,
+              changeTotalPagesOfRaitedMovies:
+                this.changeTotalPagesOfRaitedMovies,
             }}
           >
             <TabList
@@ -225,6 +238,12 @@ class App extends Component {
               Pages={this.Pages}
               changeUrlPart={this.changeUrlPart}
               changePageNumber={this.changePageNumber}
+              changePageOfRaitedMovies={this.changePageOfRaitedMovies}
+              changeTotalPagesOfRaitedMovies={
+                this.changeTotalPagesOfRaitedMovies
+              }
+              pageOfRaitedMovies={this.state.pageOfRaitedMovies}
+              totalPagesOfRaitedMovies={this.state.totalPagesOfRaitedMovies}
             />
           </MyContext.Provider>
         </div>
