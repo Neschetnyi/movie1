@@ -11,28 +11,93 @@ class Card extends Component {
   headerRef = React.createRef();
   textRef = React.createRef();
   tagsRef = React.createRef();
+  dateRef = React.createRef();
+  rateRef = React.createRef();
+  averageRaitingRef = React.createRef();
 
   state = {
     headerHeight: 0,
     textHeight: 0,
     contentHeight: 0,
     tagsHeight: 0,
+    dateHeight: 0,
+    rateHeight: 0,
+    averageRaitingHeight: 0,
+    newTextHeight: 0,
+    newHeaderHeight: 0,
   };
 
   componentDidMount() {
-    // Получаем высоту отрендеренного элемента после монтирования
-    if (this.contentRef.current) {
-      this.setState(
-        {
-          contentHeight: this.contentRef.current.offsetHeight,
-        },
-        () => {
-          console.log(
-            `element ${this.props.card.title} header height:${this.state.headerHeight} text height:${this.state.textHeight} tags height:${this.state.tagsHeight} content height:${this.state.contentHeight}`
-          );
-        }
-      );
+    let contentHeight = this.contentRef.current
+      ? this.contentRef.current.offsetHeight
+      : 0;
+    let headerHeight = this.headerRef.current
+      ? this.headerRef.current.offsetHeight
+      : 0;
+    let textHeight = this.textRef.current
+      ? this.textRef.current.offsetHeight
+      : 0;
+    let tagsHeight = this.tagsRef.current
+      ? this.tagsRef.current.offsetHeight
+      : 0;
+    let dateHeight = this.dateRef.current
+      ? this.dateRef.current.offsetHeight
+      : 0;
+    let rateHeight = this.rateRef.current
+      ? this.rateRef.current.offsetHeight
+      : 0;
+    let averageRaitingHeight = this.averageRaitingRef.current
+      ? this.averageRaitingRef.current.offsetHeight
+      : 0;
+    let newHeaderHeight = headerHeight;
+    if (headerHeight > 75) {
+      newHeaderHeight = 75;
     }
+    let newTextHeight =
+      contentHeight - headerHeight - tagsHeight - dateHeight - rateHeight - 22;
+
+    this.setState(
+      {
+        contentHeight,
+        headerHeight,
+        textHeight,
+        tagsHeight,
+        dateHeight,
+        rateHeight,
+        averageRaitingHeight,
+        newTextHeight,
+        newHeaderHeight,
+      },
+      () => {
+        console.log(
+          `element ${this.props.card.title} content height: ${contentHeight}`
+        );
+        console.log(
+          `element ${this.props.card.title} header height: ${headerHeight}`
+        );
+        console.log(
+          `element ${this.props.card.title} text height: ${textHeight}`
+        );
+        console.log(
+          `element ${this.props.card.title} tags height: ${tagsHeight}`
+        );
+        console.log(
+          `element ${this.props.card.title} date height: ${dateHeight}`
+        );
+        console.log(
+          `element ${this.props.card.title} rate height: ${rateHeight}`
+        );
+        console.log(
+          `element ${this.props.card.title} averageRaiting height: ${averageRaitingHeight}`
+        );
+        console.log(
+          `element ${this.props.card.title} newTextHeight height: ${newTextHeight}`
+        );
+        console.log(
+          `element ${this.props.card.title} newHeaderHeight height: ${newHeaderHeight}`
+        );
+      }
+    );
   }
 
   render() {
@@ -41,14 +106,6 @@ class Card extends Component {
     let tagArr = genres.map((genre) => {
       return <Tag>{genre}</Tag>;
     });
-
-    let heightTitleRegulation = () => {
-      if (card.title.length > 35 && tagArr.length < 3) {
-        return "80px";
-      } else {
-        return null;
-      }
-    };
 
     let date = new Date(card.release_date);
 
@@ -65,28 +122,35 @@ class Card extends Component {
         <div ref={this.contentRef} className="Content">
           <div>
             <div className="ContentHeader">
-              <div className="ContentHeaderH2">
-                <h2 ref={this.headerHeight} className="Content_h2">
+              <div
+                className="ContentHeaderH2"
+                style={{ height: this.state.newHeaderHeight }}
+              >
+                <h2 ref={this.headerRef} className="Content_h2">
                   {card.title}
                 </h2>
               </div>
-              <div>
+              <div ref={this.averageRaitingRef}>
                 <AverageRaiting {...card} />
               </div>
             </div>
 
-            <div className="Date">{date.toLocaleDateString()}</div>
-            <div className="Tags">{tagArr}</div>
+            <div ref={this.dateRef} className="Date">
+              {date.toLocaleDateString()}
+            </div>
+            <div ref={this.tagsRef} className="Tags">
+              {tagArr}
+            </div>
 
             <div
               ref={this.textRef}
               className="Text"
-              style={{ height: heightTitleRegulation() }}
+              style={{ height: this.state.newTextHeight }}
             >
               {card.overview}
             </div>
           </div>
-          <div className="Rating">
+          <div className="Rating" ref={this.rateRef}>
             <RateMovie
               id={card.id}
               guestSessionId={this.context.guestSessionId}

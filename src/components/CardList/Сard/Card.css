@@ -54,9 +54,14 @@
   height: fit-content;
 }
 
+.ContentHeaderH2 {
+  overflow: hidden;
+}
+
 .Content_h2 {
   font-size: 22px;
   font-weight: 500;
+  line-height: 30px;
   color: #000;
   height: fit-content;
   padding-top: 15px;
@@ -69,6 +74,7 @@
   margin: 0;
   padding-top: 8px;
   font-size: 12px;
+  line-height: 20px;
   color: #999;
 }
 
@@ -88,6 +94,6 @@
   overflow: hidden;
   padding-top: 0px;
   font-size: 12px;
-  line-height: 25px;
+  line-height: 20px;
   color: #000;
 }
