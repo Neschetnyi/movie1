@@ -26,7 +26,10 @@ class TabList extends Component {
     const { TabPane } = Tabs;
     let raitedTabContent = this.context.raitingLoaded ? (
       <div className="AppCardlist">
-        <CardList activeTab={this.state.activeTab} />
+        <CardList
+          activeTab={this.state.activeTab}
+          cards={this.context.ratedMoviesArray}
+        />
       </div>
     ) : (
       <div
@@ -50,7 +53,10 @@ class TabList extends Component {
             <SearchPanel />
           </div>
           <div className="AppCardlist">
-            <CardList activeTab={this.state.activeTab} />
+            <CardList
+              activeTab={this.state.activeTab}
+              cards={this.context.cards}
+            />
           </div>
           <div className="AppPagination">
             <PaginationComponent />

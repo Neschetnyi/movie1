@@ -66,13 +66,8 @@ class CardList extends Component {
   }
 
   render() {
-    let cardsToRender = [];
-    if (this.props.activeTab === "Search") {
-      cardsToRender = this.context.cards;
-    } else {
-      cardsToRender = this.context.ratedMoviesArray;
-      console.log("tab is rated", cardsToRender);
-    }
+    let cardsToRender = this.props.cards;
+
     let cardArr = [];
     if (cardsToRender !== null && cardsToRender !== undefined) {
       if (cardsToRender.length !== 0) {
