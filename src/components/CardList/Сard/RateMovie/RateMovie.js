@@ -10,19 +10,34 @@ class RateMovie extends Component {
   };
 
   handleChange = (value) => {
-    this.setState({ value }, () => {
-      AddRaiting(
-        this.state.value,
-        this.props.guestSessionId,
-        this.props.id
-      ).then((res) => {
-        console.log("after raiting");
-        ViewRatedMovies(this.context.guestSessionId).then((res) => {
-          console.log("after ViewRatedMovies", res.results);
-          this.context.changeRatedMoviesArray(res.results);
+    if (!this.context.addRaitinginProcess) {
+      console.log("addRaitinginProcess is false i will start normal mod");
+      this.context.changeAddRaitinginProcessTrue();
+      this.setState({ value }, () => {
+        AddRaiting(
+          this.state.value,
+          this.props.guestSessionId,
+          this.props.id
+        ).then((res) => {
+          console.log("after raiting");
+          ViewRatedMovies(this.context.guestSessionId)
+            .then((res) => {
+              console.log("after ViewRatedMovies", res.results);
+              this.context.changeRatedMoviesArray(res.results);
+              return Promise.resolve();
+            })
+            .then(() => {
+              this.context.changeAddRaitinginProcessFalse();
+            });
         });
       });
-    });
+    } else {
+      console.log("addRaitinginProcess is true i will start else mod");
+      setTimeout(() => {
+        console.log("addRaitinginProcess after timeout");
+        this.handleChange(value);
+      }, 1000);
+    }
   };
 
   render() {

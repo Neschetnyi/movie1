@@ -50,9 +50,11 @@ class Card extends Component {
       ? this.averageRaitingRef.current.offsetHeight
       : 0;
     let newHeaderHeight = headerHeight;
-    if (headerHeight > 75) {
-      newHeaderHeight = 75;
+
+    if (headerHeight > 105) {
+      newHeaderHeight = 105;
     }
+
     let newTextHeight =
       contentHeight - headerHeight - tagsHeight - dateHeight - rateHeight - 22;
 

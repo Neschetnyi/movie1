@@ -5,6 +5,7 @@ import MyContext from "./MyContext/MyContext";
 import "./App.css";
 import ClientSession from "../servises/ClientSession";
 import GetGenre from "../servises/GetGenre";
+import AddRaiting from "../servises/addRaiting";
 
 class App extends Component {
   clientSession = new ClientSession();
@@ -21,6 +22,23 @@ class App extends Component {
     totalPages: 0,
     guestSessionId: null,
     ratedMoviesArray: [],
+    addRaitinginProcess: false,
+    raitingLoaded: false,
+  };
+
+  changeAddRaitinginProcessTrue = () => {
+    this.setState({ addRaitinginProcess: true });
+  };
+
+  changeAddRaitinginProcessFalse = () => {
+    this.setState({ addRaitinginProcess: false });
+  };
+  changeRaitingLoadedTrue = () => {
+    this.setState({ raitingLoaded: true });
+  };
+
+  changeRaitingLoadedFalse = () => {
+    this.setState({ raitingLoaded: false });
   };
 
   changeRatedMoviesArray = (value) => {
@@ -177,6 +195,13 @@ class App extends Component {
               guestSessionId: this.state.guestSessionId,
               changeRatedMoviesArray: this.changeRatedMoviesArray,
               ratedMoviesArray: this.state.ratedMoviesArray,
+              addRaitinginProcess: this.state.addRaitinginProcess,
+              raitingLoaded: this.state.raitingLoaded,
+              changeAddRaitinginProcessTrue: this.changeAddRaitinginProcessTrue,
+              changeAddRaitinginProcessFalse:
+                this.changeAddRaitinginProcessFalse,
+              changeRaitingLoadedTrue: this.changeRaitingLoadedTrue,
+              changeRaitingLoadedFalse: this.changeRaitingLoadedFalse,
             }}
           >
             <TabList />
