@@ -157,7 +157,7 @@ class Card extends Component {
           <div className="Rating" ref={this.rateRef}>
             <RateMovie
               id={card.id}
-              guestSessionId={this.context.guestSessionId}
+              guestSessionId={this.props.guestSessionId}
             />
           </div>
         </div>
@@ -166,6 +166,6 @@ class Card extends Component {
   }
 }
 
-Card.contextType = MyContext;
+// Card.contextType = MyContext;
 
 export default Card;

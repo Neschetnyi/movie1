@@ -3,7 +3,6 @@ import { Tabs } from "antd";
 import CardList from "../CardList/CardList";
 import SearchPanel from "../SearchPanel/SearchPanel";
 import PaginationComponent from "../PaginationComponent/PaginationComponent";
-import MyContext from "../MyContext/MyContext";
 import { Spin } from "antd";
 
 class TabList extends Component {
@@ -24,9 +23,33 @@ class TabList extends Component {
 
   render() {
     const { TabPane } = Tabs;
-    let raitedTabContent = this.context.raitingLoaded ? (
+    let raitedTabContent = this.props.raitingLoaded ? (
       <div className="AppCardlist">
-        <CardList cards={this.props.ratedMoviesArray} />
+        <CardList
+          cards={this.props.ratedMoviesArray}
+          ratedMoviesArray={this.props.ratedMoviesArray}
+          raitingLoaded={this.props.raitingLoaded}
+          genres={this.props.genres}
+          urlPart={this.props.urlPart}
+          pageNumber={this.props.pageNumber}
+          totalPages={this.props.totalPages}
+          guestSessionId={this.props.guestSessionId}
+          notLoaded={this.props.notLoaded}
+          addRaitinginProcess={this.props.addRaitinginProcess}
+          changeRatedMoviesArray={this.props.changeRatedMoviesArray}
+          changeAddRaitinginProcessTrue={
+            this.props.changeAddRaitinginProcessTrue
+          }
+          changeAddRaitinginProcessFalse={
+            this.props.changeAddRaitinginProcessFalse
+          }
+          changeRaitingLoadedTrue={this.props.changeRaitingLoadedTrue}
+          changeRaitingLoadedFalse={this.props.changeRaitingLoadedFalse}
+          changeCards={this.props.changeCards}
+          Pages={this.props.Pages}
+          changeUrlPart={this.props.changeUrlPart}
+          changePageNumber={this.props.changePageNumber}
+        />
       </div>
     ) : (
       <div
@@ -50,7 +73,31 @@ class TabList extends Component {
             <SearchPanel />
           </div>
           <div className="AppCardlist">
-            <CardList cards={this.props.cards} />
+            <CardList
+              cards={this.props.cards}
+              ratedMoviesArray={this.props.ratedMoviesArray}
+              raitingLoaded={this.props.raitingLoaded}
+              genres={this.props.genres}
+              urlPart={this.props.urlPart}
+              pageNumber={this.props.pageNumber}
+              totalPages={this.props.totalPages}
+              guestSessionId={this.props.guestSessionId}
+              notLoaded={this.props.notLoaded}
+              addRaitinginProcess={this.props.addRaitinginProcess}
+              changeRatedMoviesArray={this.props.changeRatedMoviesArray}
+              changeAddRaitinginProcessTrue={
+                this.props.changeAddRaitinginProcessTrue
+              }
+              changeAddRaitinginProcessFalse={
+                this.props.changeAddRaitinginProcessFalse
+              }
+              changeRaitingLoadedTrue={this.props.changeRaitingLoadedTrue}
+              changeRaitingLoadedFalse={this.props.changeRaitingLoadedFalse}
+              changeCards={this.props.changeCards}
+              Pages={this.props.Pages}
+              changeUrlPart={this.props.changeUrlPart}
+              changePageNumber={this.props.changePageNumber}
+            />
           </div>
           <div className="AppPagination">
             <PaginationComponent />

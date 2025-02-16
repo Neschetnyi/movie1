@@ -206,6 +206,25 @@ class App extends Component {
             <TabList
               ratedMoviesArray={this.state.ratedMoviesArray}
               cards={this.state.cards}
+              raitingLoaded={this.state.raitingLoaded}
+              genres={this.state.genres}
+              urlPart={this.state.urlPart}
+              pageNumber={this.state.pageNumber}
+              totalPages={this.state.totalPages}
+              guestSessionId={this.state.guestSessionId}
+              notLoaded={this.state.notLoaded}
+              addRaitinginProcess={this.state.addRaitinginProcess}
+              changeRatedMoviesArray={this.changeRatedMoviesArray}
+              changeAddRaitinginProcessTrue={this.changeAddRaitinginProcessTrue}
+              changeAddRaitinginProcessFalse={
+                this.changeAddRaitinginProcessFalse
+              }
+              changeRaitingLoadedTrue={this.changeRaitingLoadedTrue}
+              changeRaitingLoadedFalse={this.changeRaitingLoadedFalse}
+              changeCards={this.changeCards}
+              Pages={this.Pages}
+              changeUrlPart={this.changeUrlPart}
+              changePageNumber={this.changePageNumber}
             />
           </MyContext.Provider>
         </div>
