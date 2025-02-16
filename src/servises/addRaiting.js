@@ -50,9 +50,9 @@ async function AddRaiting(raiting, sessionId, movieId) {
     const response = await res2.json();
     return response;
   } catch (err) {
-    console.log("Ошибка при GET-запросе:", err.message);
     if (err.message.includes("404")) {
       alert("Ошибка сервера, попробуйте позже.");
+      console.log("Ошибка при GET-запросе:", err.message);
     }
   }
 }
