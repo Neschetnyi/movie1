@@ -84,7 +84,7 @@ class CardList extends Component {
             genresArr = genresArr.filter((el) => el !== null);
             cardArr.push(
               <Card
-                key={cardsToRender[i].id}
+                key={cardsToRender[i].id + "k"}
                 card={cardsToRender[i]}
                 genres={genresArr}
                 ratedMoviesArray={this.props.ratedMoviesArray}
@@ -153,7 +153,7 @@ class CardList extends Component {
           />
         </div>
       );
-    } else if (this.props.notLoaded) {
+    } else if (this.props.notLoaded && this.props.urlPart !== "") {
       console.log("contentRender notloaded", cardsToRender);
       return (
         <div className="Alert">

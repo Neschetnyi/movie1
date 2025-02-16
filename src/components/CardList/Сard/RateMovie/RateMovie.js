@@ -20,6 +20,12 @@ class RateMovie extends Component {
           this.props.guestSessionId,
           this.props.id
         ).then((res) => {
+          if (res === null) {
+            this.setState({ value: 0 });
+            this.context.changeAddRaitinginProcessFalse();
+            this.context.changeRaitingLoadedTrue();
+            return;
+          }
           console.log("after raiting", this.context.guestSessionId);
           console.log("after ViewRatedMovies", res.results);
           this.context.changeRatedMoviesArray(res.results);

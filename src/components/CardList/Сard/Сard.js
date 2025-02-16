@@ -18,8 +18,6 @@ class Card extends Component {
   state = {};
 
   componentDidMount() {
-    console.log("Card did Mount state before changing", this.state);
-
     let contentHeight = this.contentRef.current
       ? this.contentRef.current.offsetHeight
       : 0;
@@ -50,48 +48,17 @@ class Card extends Component {
     let newTextHeight =
       contentHeight - headerHeight - tagsHeight - dateHeight - rateHeight - 22;
 
-    this.setState(
-      {
-        contentHeight,
-        headerHeight,
-        textHeight,
-        tagsHeight,
-        dateHeight,
-        rateHeight,
-        averageRaitingHeight,
-        newTextHeight,
-        newHeaderHeight,
-      },
-      () => {
-        console.log(
-          `element ${this.props.card.title} content height: ${contentHeight}`
-        );
-        console.log(
-          `element ${this.props.card.title} header height: ${headerHeight}`
-        );
-        console.log(
-          `element ${this.props.card.title} text height: ${textHeight}`
-        );
-        console.log(
-          `element ${this.props.card.title} tags height: ${tagsHeight}`
-        );
-        console.log(
-          `element ${this.props.card.title} date height: ${dateHeight}`
-        );
-        console.log(
-          `element ${this.props.card.title} rate height: ${rateHeight}`
-        );
-        console.log(
-          `element ${this.props.card.title} averageRaiting height: ${averageRaitingHeight}`
-        );
-        console.log(
-          `element ${this.props.card.title} newTextHeight height: ${newTextHeight}`
-        );
-        console.log(
-          `element ${this.props.card.title} newHeaderHeight height: ${newHeaderHeight}`
-        );
-      }
-    );
+    this.setState({
+      contentHeight,
+      headerHeight,
+      textHeight,
+      tagsHeight,
+      dateHeight,
+      rateHeight,
+      averageRaitingHeight,
+      newTextHeight,
+      newHeaderHeight,
+    });
   }
 
   render() {
