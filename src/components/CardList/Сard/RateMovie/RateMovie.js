@@ -18,7 +18,8 @@ class RateMovie extends Component {
         AddRaiting(
           this.state.value,
           this.props.guestSessionId,
-          this.props.id
+          this.props.id,
+          this.context.pageOfRaitedMovies
         ).then((res) => {
           if (res === null) {
             this.setState({ value: 0 });

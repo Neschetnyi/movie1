@@ -32,7 +32,13 @@ class App extends Component {
   };
 
   changeTotalPagesOfRaitedMovies = (value) => {
-    this.setState({ totalPagesOfRaitedMovies: value });
+    this.setState(
+      { totalPagesOfRaitedMovies: value },
+      console.log(
+        "totalPagesOfRaitedMovies in app",
+        this.state.totalPagesOfRaitedMovies
+      )
+    );
   };
 
   changeAddRaitinginProcessTrue = () => {
@@ -214,6 +220,8 @@ class App extends Component {
               changePageOfRaitedMovies: this.changePageOfRaitedMovies,
               changeTotalPagesOfRaitedMovies:
                 this.changeTotalPagesOfRaitedMovies,
+              pageOfRaitedMovies: this.state.pageOfRaitedMovies,
+              totalPagesOfRaitedMovies: this.state.totalPagesOfRaitedMovies,
             }}
           >
             <TabList

@@ -5,7 +5,7 @@ import MyContext from "../MyContext/MyContext";
 class PaginationComponent extends Component {
   state = {
     current: 1,
-    totalPages: null,
+    totalPages: this.props.totalPages,
   };
 
   onChange = (page) => {
@@ -17,23 +17,28 @@ class PaginationComponent extends Component {
       },
       () => {
         console.log("current page is:", this.state.current);
-        this.context.changePageNumber(this.state.current);
+        this.props.changePageNumber(this.state.current);
       }
     );
+  };
+
+  updateTotalPages = () => {
+    this.setState({
+      totalPages: this.props.totalPages,
+    });
   };
 
   componentDidMount() {
     this.updateTotalPages();
   }
 
-  updateTotalPages = () => {
-    this.setState({
-      totalPages: this.context.totalPages,
-    });
-  };
-
   componentDidUpdate(prevProps, prevState) {
-    if (prevState.totalPages !== this.context.totalPages) {
+    if (
+      prevState.totalPages !== this.props.totalPages ||
+      prevProps.totalPages !== this.props.totalPages
+    ) {
+      console.log("totalPages is:", this.props.totalPages);
+      console.log("prev totalPages is:", prevState.totalPages);
       this.updateTotalPages();
     }
   }
