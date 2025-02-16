@@ -45,6 +45,22 @@ class RateMovie extends Component {
     }
   };
 
+  componentDidMount() {
+    console.log("componentDidMount in RateMovie");
+    let index = this.context.ratedMoviesArray.findIndex((el, index, array) => {
+      return el.id === this.props.id;
+    });
+    if (index !== -1) {
+      this.setState({ value: this.context.ratedMoviesArray[index].rating });
+    }
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.value !== this.state.value) {
+      this.context.changeRatedMoviesArray(this.context.ratedMoviesArray);
+    }
+  }
+
   render() {
     const { value } = this.state;
     return (

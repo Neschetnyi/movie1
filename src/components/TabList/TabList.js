@@ -23,6 +23,8 @@ class TabList extends Component {
 
   render() {
     const { TabPane } = Tabs;
+    console.log("TabList render", this.props.ratedMoviesArray);
+
     let raitedTabContent = this.props.raitingLoaded ? (
       <div className="AppCardlist">
         <CardList

@@ -44,7 +44,7 @@ async function AddRaiting(raiting, sessionId, movieId) {
 
     if (!res2.ok) {
       console.log(`Ошибка HTTP! статус: ${res2.status}`);
-      return null;
+      throw new Error(`Ошибка HTTP: ${res2.status}`);
     }
 
     const response = await res2.json();
@@ -54,6 +54,7 @@ async function AddRaiting(raiting, sessionId, movieId) {
       alert("Ошибка сервера, попробуйте позже.");
       console.log("Ошибка при GET-запросе:", err.message);
     }
+    return null;
   }
 }
 

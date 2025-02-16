@@ -12,8 +12,8 @@ class CardList extends Component {
     errorName: "",
     onlineStatus: false,
     error: null,
-    prevUrl: "",
-    prevPage: null,
+    prevUrl: this.props.urlPart,
+    prevPage: this.props.pageNumber,
   };
 
   changeStateArrLengthTrue() {
@@ -45,20 +45,23 @@ class CardList extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    console.log("CardList did update ");
-    /*
     if (
-      prevState.prevUrl !== this.context.urlPart ||
-      prevState.prevPage !== this.context.pageNumber
+      prevState.prevUrl !== this.props.urlPart ||
+      prevState.prevPage !== this.props.pageNumber
     ) {
-      console.log("CardList did update this.context.cards", this.context.cards);
-
-      // this.context.changeCards();
-
-      this.setState({ prevUrl: this.context.urlPart });
-      this.setState({ prevPage: this.context.pageNumber });
+      console.log(
+        "CardList did update this.context.cards",
+        prevState.prevUrl !== this.props.urlPart
+      );
+      console.log("CardList did update prevState.prevUrl", prevState.prevUrl);
+      console.log("CardList did update this.props.urlPart", this.props.urlPart);
+      this.props.changeCards();
+      this.props.changeRatedMoviesArray(this.props.ratedMoviesArray);
+      this.setState({ prevUrl: this.props.urlPart });
+      this.setState({ prevPage: this.props.pageNumber });
+      this.setState({ prevUrl: this.props.urlPart });
+      this.setState({ prevPage: this.props.pageNumber });
     }
-      */
   }
 
   componentWillUnmount() {
