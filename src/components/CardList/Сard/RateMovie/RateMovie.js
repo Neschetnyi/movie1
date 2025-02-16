@@ -44,7 +44,7 @@ class RateMovie extends Component {
       setTimeout(() => {
         console.log("addRaitinginProcess after timeout");
         this.handleChange(value);
-      }, 1500);
+      }, 500);
     }
   };
 

@@ -15,17 +15,7 @@ class Card extends Component {
   rateRef = React.createRef();
   averageRaitingRef = React.createRef();
 
-  state = {
-    headerHeight: 0,
-    textHeight: 0,
-    contentHeight: 0,
-    tagsHeight: 0,
-    dateHeight: 0,
-    rateHeight: 0,
-    averageRaitingHeight: 0,
-    newTextHeight: 0,
-    newHeaderHeight: 0,
-  };
+  state = {};
 
   componentDidMount() {
     console.log("Card did Mount state before changing", this.state);
