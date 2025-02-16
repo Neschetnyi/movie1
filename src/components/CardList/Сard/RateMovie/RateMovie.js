@@ -12,6 +12,7 @@ class RateMovie extends Component {
   handleChange = (value) => {
     if (!this.context.addRaitinginProcess) {
       console.log("addRaitinginProcess is false i will start normal mod");
+      this.context.changeRaitingLoadedFalse();
       this.context.changeAddRaitinginProcessTrue();
       this.setState({ value }, () => {
         AddRaiting(
@@ -19,7 +20,7 @@ class RateMovie extends Component {
           this.props.guestSessionId,
           this.props.id
         ).then((res) => {
-          console.log("after raiting");
+          console.log("after raiting", this.context.guestSessionId);
           ViewRatedMovies(this.context.guestSessionId)
             .then((res) => {
               console.log("after ViewRatedMovies", res.results);
@@ -28,6 +29,13 @@ class RateMovie extends Component {
             })
             .then(() => {
               this.context.changeAddRaitinginProcessFalse();
+              this.context.changeRaitingLoadedTrue();
+              return Promise.resolve();
+            })
+            .then(() => {
+              console.log(
+                `loading flags: addRaitinginProcess: ${this.context.addRaitinginProcess}, raitingLoaded: ${this.context.raitingLoaded}`
+              );
             });
         });
       });
@@ -36,7 +44,7 @@ class RateMovie extends Component {
       setTimeout(() => {
         console.log("addRaitinginProcess after timeout");
         this.handleChange(value);
-      }, 1000);
+      }, 1500);
     }
   };
 

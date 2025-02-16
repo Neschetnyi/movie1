@@ -3,6 +3,8 @@ import { Tabs } from "antd";
 import CardList from "../CardList/CardList";
 import SearchPanel from "../SearchPanel/SearchPanel";
 import PaginationComponent from "../PaginationComponent/PaginationComponent";
+import MyContext from "../MyContext/MyContext";
+import { Spin } from "antd";
 
 class TabList extends Component {
   state = {
@@ -22,6 +24,24 @@ class TabList extends Component {
 
   render() {
     const { TabPane } = Tabs;
+    let raitedTabContent = this.context.raitingLoaded ? (
+      <div className="AppCardlist">
+        <CardList activeTab={this.state.activeTab} />
+      </div>
+    ) : (
+      <div
+        style={{
+          width: "100%",
+          height: "70vh",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        ДОБАВОЧНЫЙ СПИН
+        <Spin size="large" />
+      </div>
+    );
 
     return (
       <Tabs defaultActiveKey="1" onChange={this.callback} centered>
@@ -37,9 +57,7 @@ class TabList extends Component {
           </div>
         </TabPane>
         <TabPane tab="Raited" key="2">
-          <div className="AppCardlist">
-            <CardList activeTab={this.state.activeTab} />
-          </div>
+          {raitedTabContent}
           <div className="AppPagination">
             <PaginationComponent />
           </div>
@@ -48,5 +66,7 @@ class TabList extends Component {
     );
   }
 }
+
+TabList.contextType = MyContext;
 
 export default TabList;
