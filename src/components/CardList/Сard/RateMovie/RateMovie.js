@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { Rate } from "antd";
 import AddRaiting from "../../../../servises/addRaiting";
 import MyContext from "../../../MyContext/MyContext";
-import ViewRatedMovies from "../../../../servises/ViewRatedMovies";
 
 class RateMovie extends Component {
   state = {
@@ -68,18 +67,37 @@ class RateMovie extends Component {
 
   render() {
     const { value } = this.state;
-    return (
-      <span>
-        <Rate
-          count={10}
-          allowHalf={true}
-          onChange={this.handleChange}
-          value={value}
-          style={{ fontSize: 16 }}
-          defaultValue={0}
-        />
-      </span>
-    );
+    let rate = null;
+    console.log("active tab in render RateMovie", this.props.activeTab);
+    if (this.props.activeTab === "Raited") {
+      rate = (
+        <span>
+          <Rate
+            count={10}
+            allowHalf={true}
+            onChange={this.handleChange}
+            value={value}
+            style={{ fontSize: 16, color: "#9e6767" }}
+            defaultValue={0}
+            disabled
+          />
+        </span>
+      );
+    } else {
+      rate = (
+        <span>
+          <Rate
+            count={10}
+            allowHalf={true}
+            onChange={this.handleChange}
+            value={value}
+            style={{ fontSize: 16 }}
+            defaultValue={0}
+          />
+        </span>
+      );
+    }
+    return rate;
   }
 }
 

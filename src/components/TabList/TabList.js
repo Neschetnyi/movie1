@@ -2,8 +2,6 @@ import React, { Component } from "react";
 import { Tabs } from "antd";
 import CardList from "../CardList/CardList";
 import SearchPanel from "../SearchPanel/SearchPanel";
-import PaginationComponent from "../PaginationComponent/PaginationComponent";
-import PaginationComponent2 from "../PaginationComponent2/PaginationComponent2";
 import { Spin } from "antd";
 import ViewRatedMovies from "../../servises/ViewRatedMovies";
 import { Pagination } from "antd";
@@ -132,6 +130,7 @@ class TabList extends Component {
           Pages={this.props.Pages}
           changeUrlPart={this.props.changeUrlPart}
           changePageNumber={this.props.changePageNumber}
+          activeTab={this.state.activeTab}
         />
       </div>
     ) : (
@@ -182,6 +181,7 @@ class TabList extends Component {
                 Pages={this.props.Pages}
                 changeUrlPart={this.props.changeUrlPart}
                 changePageNumber={this.props.changePageNumber}
+                activeTab={this.state.activeTab}
               />
             </div>
           </>

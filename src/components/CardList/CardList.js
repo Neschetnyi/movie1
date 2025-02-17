@@ -3,7 +3,6 @@ import Card from "./Сard/Сard";
 import "./CardList.css";
 import { Spin } from "antd";
 import { Alert } from "antd";
-import MyContext from "../MyContext/MyContext";
 
 class CardList extends Component {
   state = {
@@ -108,6 +107,7 @@ class CardList extends Component {
                 Pages={this.props.Pages}
                 changeUrlPart={this.props.changeUrlPart}
                 changePageNumber={this.props.changePageNumber}
+                activeTab={this.props.activeTab}
               />
             );
           }

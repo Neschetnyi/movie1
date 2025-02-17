@@ -115,6 +115,7 @@ class Card extends Component {
             <RateMovie
               id={card.id}
               guestSessionId={this.props.guestSessionId}
+              activeTab={this.props.activeTab}
             />
           </div>
         </div>
