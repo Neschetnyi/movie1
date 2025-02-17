@@ -149,6 +149,4 @@ class CardList extends Component {
   }
 }
 
-// CardList.contextType = MyContext;
-
 export default CardList;
