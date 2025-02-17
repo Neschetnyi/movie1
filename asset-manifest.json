@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/katamovie1/static/css/main.4d7484eb.css",
-    "main.js": "/katamovie1/static/js/main.ea95746a.js",
-    "static/media/AGHelvetica.ttf": "/katamovie1/static/media/AGHelvetica.5b304032e61d7c531f15.ttf",
-    "static/media/cardBG.png": "/katamovie1/static/media/cardBG.52cfe83983c365d5ea35.png",
-    "index.html": "/katamovie1/index.html",
-    "main.4d7484eb.css.map": "/katamovie1/static/css/main.4d7484eb.css.map",
-    "main.ea95746a.js.map": "/katamovie1/static/js/main.ea95746a.js.map"
+    "main.css": "/movie1/static/css/main.01b774b6.css",
+    "main.js": "/movie1/static/js/main.b5cdd6d1.js",
+    "static/media/AGHelvetica.ttf": "/movie1/static/media/AGHelvetica.5b304032e61d7c531f15.ttf",
+    "static/media/cardBG.png": "/movie1/static/media/cardBG.52cfe83983c365d5ea35.png",
+    "index.html": "/movie1/index.html",
+    "main.01b774b6.css.map": "/movie1/static/css/main.01b774b6.css.map",
+    "main.b5cdd6d1.js.map": "/movie1/static/js/main.b5cdd6d1.js.map"
   },
   "entrypoints": [
-    "static/css/main.4d7484eb.css",
-    "static/js/main.ea95746a.js"
+    "static/css/main.01b774b6.css",
+    "static/js/main.b5cdd6d1.js"
   ]
 }
