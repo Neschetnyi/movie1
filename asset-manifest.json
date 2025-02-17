@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/katamovie/static/css/main.98c83a67.css",
+    "main.js": "/katamovie/static/js/main.ee3c0ca7.js",
+    "static/media/AGHelvetica.ttf": "/katamovie/static/media/AGHelvetica.5b304032e61d7c531f15.ttf",
+    "static/media/cardBG.png": "/katamovie/static/media/cardBG.52cfe83983c365d5ea35.png",
+    "index.html": "/katamovie/index.html",
+    "main.98c83a67.css.map": "/katamovie/static/css/main.98c83a67.css.map",
+    "main.ee3c0ca7.js.map": "/katamovie/static/js/main.ee3c0ca7.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.98c83a67.css",
+    "static/js/main.ee3c0ca7.js"
+  ]
+}
