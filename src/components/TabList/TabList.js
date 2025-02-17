@@ -159,6 +159,8 @@ class TabList extends Component {
                 changeRatedMoviesArray={this.props.changeRatedMoviesArray}
                 changeCards={this.props.changeCards}
                 activeTab={this.state.activeTab}
+                //
+                ratedMoviesArray={this.props.ratedMoviesArray}
               />
             </div>
           </>

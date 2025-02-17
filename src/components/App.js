@@ -221,6 +221,13 @@ class App extends Component {
                 this.changeTotalPagesOfRaitedMovies
               }
               //
+              Pages={this.Pages}
+              changeUrlPart={this.changeUrlPart}
+              changeAddRaitinginProcessTrue={this.changeAddRaitinginProcessTrue}
+              changeAddRaitinginProcessFalse={
+                this.changeAddRaitinginProcessFalse
+              }
+              addRaitinginProcess={this.state.addRaitinginProcess}
             />
           </MyContext.Provider>
         </div>
