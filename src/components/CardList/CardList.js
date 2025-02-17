@@ -47,9 +47,11 @@ class CardList extends Component {
   componentDidUpdate(prevProps, prevState) {
     if (
       prevState.prevUrl !== this.props.urlPart ||
-      prevState.prevPage !== this.props.pageNumber
+      prevState.prevPage !== this.props.pageNumber ||
+      prevProps.totalPagesOfRaitedMovies !== this.props.totalPagesOfRaitedMovies
     ) {
       this.props.changeCards();
+
       this.props.changeRatedMoviesArray(this.props.ratedMoviesArray);
       this.setState({ prevUrl: this.props.urlPart });
       this.setState({ prevPage: this.props.pageNumber });

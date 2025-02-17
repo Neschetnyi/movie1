@@ -19,9 +19,6 @@ async function AddRaiting(raiting, sessionId, movieId, page) {
     if (!res.ok) {
       console.log(`Ошибка HTTP! статус: ${res.status}`);
     }
-
-    const resJson = await res.json();
-    console.log("Ответ после добавления рейтинга:", raiting, resJson);
   } catch (err) {
     console.log("Ошибка при POST-запросе:", err.message);
   }

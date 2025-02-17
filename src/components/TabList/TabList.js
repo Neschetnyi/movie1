@@ -26,12 +26,14 @@ class TabList extends Component {
   componentDidMount() {
     console.log("TabList componentDidMount");
     this.props.changeRaitingLoadedFalse();
-    ViewRatedMovies(this.props.guestSessionId, this.props.pageOfRaitedMovies)
-      .then((res) => {
-        this.props.changeRatedMoviesArray(res.results);
-        return Promise.resolve();
-      })
-      .then((res) => this.props.changeRaitingLoadedTrue());
+    if (this.props.ratedMoviesArray.length !== 0) {
+      ViewRatedMovies(this.props.guestSessionId, this.props.pageOfRaitedMovies)
+        .then((res) => {
+          this.props.changeRatedMoviesArray(res.results);
+          return Promise.resolve();
+        })
+        .then((res) => this.props.changeRaitingLoadedTrue());
+    }
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -45,12 +47,17 @@ class TabList extends Component {
         this.props.totalPagesOfRaitedMovies
       );
       this.props.changeRaitingLoadedFalse();
-      ViewRatedMovies(this.props.guestSessionId, this.props.pageOfRaitedMovies)
-        .then((res) => {
-          this.props.changeRatedMoviesArray(res.results);
-          return Promise.resolve();
-        })
-        .then((res) => this.props.changeRaitingLoadedTrue());
+      if (this.props.ratedMoviesArray.length !== 0) {
+        ViewRatedMovies(
+          this.props.guestSessionId,
+          this.props.pageOfRaitedMovies
+        )
+          .then((res) => {
+            this.props.changeRatedMoviesArray(res.results);
+            return Promise.resolve();
+          })
+          .then((res) => this.props.changeRaitingLoadedTrue());
+      }
       console.log(
         "in tab this.props.totalPagesOfRaitedMovies",
         this.props.totalPagesOfRaitedMovies
@@ -97,7 +104,6 @@ class TabList extends Component {
           alignItems: "center",
         }}
       >
-        ДОБАВОЧНЫЙ СПИН
         <Spin size="large" />
       </div>
     );
