@@ -36,7 +36,7 @@ class CardList extends Component {
   componentDidMount() {
     console.log("CardList did mount ");
 
-    //this.context.changeCards();
+    //this.props.changeCards();
     this.setState({ didMount: true });
 
     window.addEventListener("online", this.handleOnline);
@@ -46,8 +46,7 @@ class CardList extends Component {
   componentDidUpdate(prevProps, prevState) {
     if (
       prevState.prevUrl !== this.props.urlPart ||
-      prevState.prevPage !== this.props.pageNumber ||
-      prevProps.totalPagesOfRaitedMovies !== this.props.totalPagesOfRaitedMovies
+      prevState.prevPage !== this.props.pageNumber
     ) {
       this.props.changeCards();
 
@@ -85,28 +84,7 @@ class CardList extends Component {
                 key={cardsToRender[i].id}
                 card={cardsToRender[i]}
                 genres={genresArr}
-                ratedMoviesArray={this.props.ratedMoviesArray}
-                cards={this.props.cards}
-                raitingLoaded={this.props.raitingLoaded}
-                urlPart={this.props.urlPart}
-                pageNumber={this.props.pageNumber}
-                totalPages={this.props.totalPages}
                 guestSessionId={this.props.guestSessionId}
-                notLoaded={this.props.notLoaded}
-                addRaitinginProcess={this.props.addRaitinginProcess}
-                changeRatedMoviesArray={this.props.changeRatedMoviesArray}
-                changeAddRaitinginProcessTrue={
-                  this.props.changeAddRaitinginProcessTrue
-                }
-                changeAddRaitinginProcessFalse={
-                  this.props.changeAddRaitinginProcessFalse
-                }
-                changeRaitingLoadedTrue={this.props.changeRaitingLoadedTrue}
-                changeRaitingLoadedFalse={this.props.changeRaitingLoadedFalse}
-                changeCards={this.props.changeCards}
-                Pages={this.props.Pages}
-                changeUrlPart={this.props.changeUrlPart}
-                changePageNumber={this.props.changePageNumber}
                 activeTab={this.props.activeTab}
               />
             );

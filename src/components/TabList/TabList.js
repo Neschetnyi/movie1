@@ -104,33 +104,21 @@ class TabList extends Component {
   }
 
   render() {
-    let raitedTabContent = this.props.raitingLoaded ? (
+    let raitedTabContent = true ? (
       <div className="AppCardlist">
         <CardList
           cards={this.props.ratedMoviesArray}
-          ratedMoviesArray={this.props.ratedMoviesArray}
           raitingLoaded={this.props.raitingLoaded}
           genres={this.props.genres}
           urlPart={this.props.urlPart}
           pageNumber={this.props.pageNumber}
-          totalPages={this.props.totalPages}
           guestSessionId={this.props.guestSessionId}
           notLoaded={this.props.notLoaded}
-          addRaitinginProcess={this.props.addRaitinginProcess}
           changeRatedMoviesArray={this.props.changeRatedMoviesArray}
-          changeAddRaitinginProcessTrue={
-            this.props.changeAddRaitinginProcessTrue
-          }
-          changeAddRaitinginProcessFalse={
-            this.props.changeAddRaitinginProcessFalse
-          }
-          changeRaitingLoadedTrue={this.props.changeRaitingLoadedTrue}
-          changeRaitingLoadedFalse={this.props.changeRaitingLoadedFalse}
           changeCards={this.props.changeCards}
-          Pages={this.props.Pages}
-          changeUrlPart={this.props.changeUrlPart}
-          changePageNumber={this.props.changePageNumber}
           activeTab={this.state.activeTab}
+          //
+          ratedMoviesArray={this.props.ratedMoviesArray}
         />
       </div>
     ) : (
@@ -159,28 +147,14 @@ class TabList extends Component {
             <div className="AppCardlist">
               <CardList
                 cards={this.props.cards}
-                ratedMoviesArray={this.props.ratedMoviesArray}
                 raitingLoaded={this.props.raitingLoaded}
                 genres={this.props.genres}
                 urlPart={this.props.urlPart}
                 pageNumber={this.props.pageNumber}
-                totalPages={this.props.totalPages}
                 guestSessionId={this.props.guestSessionId}
                 notLoaded={this.props.notLoaded}
-                addRaitinginProcess={this.props.addRaitinginProcess}
                 changeRatedMoviesArray={this.props.changeRatedMoviesArray}
-                changeAddRaitinginProcessTrue={
-                  this.props.changeAddRaitinginProcessTrue
-                }
-                changeAddRaitinginProcessFalse={
-                  this.props.changeAddRaitinginProcessFalse
-                }
-                changeRaitingLoadedTrue={this.props.changeRaitingLoadedTrue}
-                changeRaitingLoadedFalse={this.props.changeRaitingLoadedFalse}
                 changeCards={this.props.changeCards}
-                Pages={this.props.Pages}
-                changeUrlPart={this.props.changeUrlPart}
-                changePageNumber={this.props.changePageNumber}
                 activeTab={this.state.activeTab}
               />
             </div>

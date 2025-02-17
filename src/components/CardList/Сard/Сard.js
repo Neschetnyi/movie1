@@ -4,7 +4,6 @@ import { Tag } from "antd";
 import cardBG from "./cardBG.png";
 import RateMovie from "./RateMovie/RateMovie";
 import AverageRaiting from "./AverageRaiting/AverageRaiting";
-import MyContext from "../../MyContext/MyContext";
 
 class Card extends Component {
   contentRef = React.createRef();
@@ -123,7 +122,5 @@ class Card extends Component {
     );
   }
 }
-
-// Card.contextType = MyContext;
 
 export default Card;
