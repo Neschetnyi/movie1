@@ -2,51 +2,47 @@ import React, { Component } from "react";
 import { Pagination } from "antd";
 import MyContext from "../MyContext/MyContext";
 
-class PaginationComponent extends Component {
+class PaginationComponent2 extends Component {
   state = {
     current: 1,
     totalPages: this.props.totalPages,
   };
 
   onChange = (page) => {
-    console.log(page);
-
-    this.setState(
-      {
-        current: page,
-      },
-      () => {
-        console.log("current page is:", this.state.current);
-        this.props.changePageNumber(this.state.current);
-      }
-    );
+    this.setState({ current: page }, () => {
+      this.props.changePageNumber(this.state.current);
+    });
   };
 
   updateTotalPages = () => {
-    this.setState({
-      totalPages: Number(this.props.totalPages),
-    });
+    this.setState({ totalPages: Number(this.props.totalPages) });
   };
 
   componentDidMount() {
     this.updateTotalPages();
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    if (
-      prevState.totalPages !== this.props.totalPages ||
-      prevProps.totalPages !== this.props.totalPages
-    ) {
-      console.log("totalPages is:", this.props.totalPages);
-      console.log("prev totalPages is:", prevState.totalPages);
-      this.setState({
-        totalPages: Number(this.props.totalPages),
-      });
+  componentDidUpdate(prevProps) {
+    if (prevProps.totalPages !== this.props.totalPages) {
+      console.log("Detected change in totalPages (Raited)");
       this.updateTotalPages();
     }
+
+    console.log(
+      "componentDidUpdate - current:",
+      this.state.current,
+      "totalPages:",
+      this.state.totalPages
+    );
   }
 
   render() {
+    console.log(
+      "Rendering PaginationComponent with current:",
+      this.state.current,
+      "totalPages:",
+      this.state.totalPages
+    );
     return (
       <Pagination
         current={this.state.current}
@@ -59,6 +55,6 @@ class PaginationComponent extends Component {
   }
 }
 
-// PaginationComponent.contextType = MyContext;
+// PaginationComponent2.contextType = MyContext;
 
-export default PaginationComponent;
+export default PaginationComponent2;

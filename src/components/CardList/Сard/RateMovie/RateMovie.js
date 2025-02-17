@@ -15,6 +15,14 @@ class RateMovie extends Component {
       this.context.changeRaitingLoadedFalse();
       this.context.changeAddRaitinginProcessTrue();
       this.setState({ value }, () => {
+        console.log(
+          "before addRaiting this.context.pageOfRaitedMovies",
+          this.context.pageOfRaitedMovies
+        );
+        console.log(
+          "before addRaiting this.context.totalPagesOfRaitedMovies",
+          this.context.totalPagesOfRaitedMovies
+        );
         AddRaiting(
           this.state.value,
           this.props.guestSessionId,
@@ -28,6 +36,7 @@ class RateMovie extends Component {
             return;
           }
           console.log("after raiting", this.context.guestSessionId);
+          console.log("after ViewRatedMovies", res);
           console.log("after ViewRatedMovies", res);
           this.context.changeRatedMoviesArray(res.results);
           this.context.changePageOfRaitedMovies(res.page);
@@ -50,11 +59,18 @@ class RateMovie extends Component {
 
   componentDidMount() {
     console.log("componentDidMount in RateMovie");
-    let index = this.context.ratedMoviesArray.findIndex((el, index, array) => {
-      return el.id === this.props.id;
-    });
-    if (index !== -1) {
-      this.setState({ value: this.context.ratedMoviesArray[index].rating });
+    if (
+      this.context.ratedMoviesArray &&
+      this.context.ratedMoviesArray.length > 0
+    ) {
+      let index = this.context.ratedMoviesArray.findIndex(
+        (el, index, array) => {
+          return el.id === this.props.id;
+        }
+      );
+      if (index !== -1) {
+        this.setState({ value: this.context.ratedMoviesArray[index].rating });
+      }
     }
   }
 
