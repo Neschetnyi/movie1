@@ -87,7 +87,7 @@ class CardList extends Component {
             genresArr = genresArr.filter((el) => el !== null);
             cardArr.push(
               <Card
-                key={cardsToRender[i].id + "k"}
+                key={cardsToRender[i].id}
                 card={cardsToRender[i]}
                 genres={genresArr}
                 ratedMoviesArray={this.props.ratedMoviesArray}

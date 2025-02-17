@@ -2,20 +2,20 @@ import React, { Component } from "react";
 import { Pagination } from "antd";
 import MyContext from "../MyContext/MyContext";
 
-class PaginationComponent2 extends Component {
+class PaginationComponent extends Component {
   state = {
     current: 1,
-    totalPages: this.props.totalPages,
+    totalPages: this.props.total,
   };
 
   onChange = (page) => {
     this.setState({ current: page }, () => {
-      this.props.changePageNumber(this.state.current);
+      this.props.changePage(this.state.current);
     });
   };
 
   updateTotalPages = () => {
-    this.setState({ totalPages: Number(this.props.totalPages) });
+    this.setState({ totalPages: Number(this.props.total) });
   };
 
   componentDidMount() {
@@ -23,7 +23,7 @@ class PaginationComponent2 extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (prevProps.totalPages !== this.props.totalPages) {
+    if (prevProps.total !== this.props.total) {
       console.log("Detected change in totalPages (Raited)");
       this.updateTotalPages();
     }
@@ -57,4 +57,4 @@ class PaginationComponent2 extends Component {
 
 // PaginationComponent2.contextType = MyContext;
 
-export default PaginationComponent2;
+export default PaginationComponent;

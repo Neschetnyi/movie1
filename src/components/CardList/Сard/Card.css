@@ -17,6 +17,10 @@
   margin-top: 35px;
 }
 
+.Card:last-child {
+  margin-left: 30px;
+}
+
 .firstCard {
   margin-top: 0;
 }

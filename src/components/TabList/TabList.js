@@ -144,8 +144,8 @@ class TabList extends Component {
             <div className="AppPagination">
               <PaginationComponent
                 key={this.state.activeKey}
-                changePageNumber={this.props.changePageNumber}
-                totalPages={this.props.totalPages}
+                changePage={this.props.changePageNumber}
+                total={this.props.totalPages}
               />
             </div>
           </>
@@ -158,13 +158,10 @@ class TabList extends Component {
           <>
             {raitedTabContent}
             <div className="AppPagination">
-              <PaginationComponent2
+              <PaginationComponent
                 key={this.state.activeKey}
-                changePageOfRaitedMovies={this.props.changePageOfRaitedMovies}
-                totalPagesOfRaitedMovies={this.props.totalPagesOfRaitedMovies}
-                pageOfRaitedMovies={this.props.pageOfRaitedMovies}
-                changeRatedMoviesArray={this.props.changeRatedMoviesArray}
-                guestSessionId={this.props.guestSessionId}
+                changePage={this.props.changePageOfRaitedMovies}
+                total={this.props.totalPagesOfRaitedMovies}
               />
             </div>
           </>
@@ -185,5 +182,12 @@ class TabList extends Component {
 
 export default TabList;
 /*
-
+ <PaginationComponent2
+                key={this.state.activeKey}
+                changePageOfRaitedMovies={this.props.changePageOfRaitedMovies}
+                totalPagesOfRaitedMovies={this.props.totalPagesOfRaitedMovies}
+                pageOfRaitedMovies={this.props.pageOfRaitedMovies}
+                changeRatedMoviesArray={this.props.changeRatedMoviesArray}
+                guestSessionId={this.props.guestSessionId}
+              />
 */

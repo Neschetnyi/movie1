@@ -65,7 +65,7 @@ class Card extends Component {
     const { card, genres } = this.props;
 
     let tagArr = genres.map((genre) => {
-      return <Tag>{genre}</Tag>;
+      return <Tag key={genre}>{genre}</Tag>;
     });
 
     let date = new Date(card.release_date);
