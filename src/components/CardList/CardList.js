@@ -49,12 +49,6 @@ class CardList extends Component {
       prevState.prevUrl !== this.props.urlPart ||
       prevState.prevPage !== this.props.pageNumber
     ) {
-      console.log(
-        "CardList did update this.context.cards",
-        prevState.prevUrl !== this.props.urlPart
-      );
-      console.log("CardList did update prevState.prevUrl", prevState.prevUrl);
-      console.log("CardList did update this.props.urlPart", this.props.urlPart);
       this.props.changeCards();
       this.props.changeRatedMoviesArray(this.props.ratedMoviesArray);
       this.setState({ prevUrl: this.props.urlPart });
@@ -120,7 +114,6 @@ class CardList extends Component {
     }
 
     if (this.state.onError) {
-      console.log("contentRender error", cardsToRender);
       return (
         <div className="Alert">
           <Alert
@@ -131,7 +124,6 @@ class CardList extends Component {
         </div>
       );
     } else if (this.state.onlineStatus) {
-      console.log("contentRender onlineStatus", cardsToRender);
       return (
         <div className="Alert">
           <Alert
@@ -146,7 +138,6 @@ class CardList extends Component {
       cardsToRender.length === 0 &&
       this.props.urlPart !== ""
     ) {
-      console.log("contentRender arr = 0", cardsToRender);
       return (
         <div className="Alert">
           <Alert
@@ -157,17 +148,14 @@ class CardList extends Component {
         </div>
       );
     } else if (this.props.notLoaded && this.props.urlPart !== "") {
-      console.log("contentRender notloaded", cardsToRender);
       return (
         <div className="Alert">
           <Spin size="large" />
         </div>
       );
     } else if (cardsToRender !== null && this.props.urlPart !== "") {
-      console.log("contentRender cards", cardsToRender);
       return <div className="CardList">{cardArr}</div>;
     } else {
-      console.log("contentRender default", cardsToRender);
       return (
         <div className="Alert">
           <Alert

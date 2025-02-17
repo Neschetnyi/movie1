@@ -32,13 +32,7 @@ class App extends Component {
   };
 
   changeTotalPagesOfRaitedMovies = (value) => {
-    this.setState(
-      { totalPagesOfRaitedMovies: value },
-      console.log(
-        "totalPagesOfRaitedMovies in app",
-        this.state.totalPagesOfRaitedMovies
-      )
-    );
+    this.setState({ totalPagesOfRaitedMovies: value });
   };
 
   changeAddRaitinginProcessTrue = () => {
@@ -57,19 +51,14 @@ class App extends Component {
   };
 
   changeRatedMoviesArray = (value) => {
-    this.setState(
-      { ratedMoviesArray: value },
-      console.log("ratedMoviesArray", value)
-    );
+    this.setState({ ratedMoviesArray: value });
   };
 
   Pages = () => {
     this.setMovies()
       .getPages()
       .then((value) => {
-        this.setState({ totalPages: value }, () => {
-          console.log("totalPages after fetching", this.state.totalPages);
-        });
+        this.setState({ totalPages: value }, () => {});
       })
       .catch((err) => {
         console.log("error is: ", err.message);
@@ -90,17 +79,11 @@ class App extends Component {
   changeCards = () => {
     if (this.state.urlPart === "") {
       this.changeNotLoadedFalse();
-      console.log(
-        "NotLoaded set to 'false' in the end of changeCards function",
-        this.state.notLoaded
-      );
+
       return;
     } else {
       this.changeNotLoadedTrue();
-      console.log(
-        "NotLoaded set to 'true' in the start of changeCards function",
-        this.state.notLoaded
-      );
+
       this.setMovies()
         .getAllMovies()
         .then((value) => {
@@ -109,10 +92,6 @@ class App extends Component {
           }
 
           this.changeNotLoadedFalse();
-          console.log(
-            "NotLoaded set to 'false' in the end of changeCards function",
-            this.state.notLoaded
-          );
         })
         .catch((err) => {
           console.log("error is: ", err.message);
@@ -142,7 +121,6 @@ class App extends Component {
 
   setGenres = () => {
     let genres = new GetGenre().getGenres().then((response) => {
-      console.log("feched genres", response);
       return response;
     });
     return genres;
@@ -158,23 +136,18 @@ class App extends Component {
 
   changeGenres = () => {
     this.setGenres().then((response) => {
-      console.log("changeGenres", response.genres);
-      this.setState({ genres: response.genres }, () => {
-        console.log("this genres", this.state.genres);
-      });
+      this.setState({ genres: response.genres }, () => {});
     });
   };
 
   changeUrlPart = (urlPart) => {
     this.setState({ urlPart: urlPart }, () => {
-      console.log("urlPart is changed and now is:", this.state.urlPart);
       this.changeCards();
     });
   };
 
   changePageNumber = (pageNumber) => {
     this.setState({ pageNumber: pageNumber }, () => {
-      console.log("urlPart", this.state.urlPart);
       this.changeCards();
     });
   };

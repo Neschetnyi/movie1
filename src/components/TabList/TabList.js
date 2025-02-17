@@ -59,9 +59,6 @@ class TabList extends Component {
   }
 
   render() {
-    const { TabPane } = Tabs;
-    console.log("TabList render", this.props.ratedMoviesArray);
-
     let raitedTabContent = this.props.raitingLoaded ? (
       <div className="AppCardlist">
         <CardList
@@ -144,6 +141,7 @@ class TabList extends Component {
             <div className="AppPagination">
               <PaginationComponent
                 key={this.state.activeKey}
+                TabListKey={this.state.activeKey}
                 changePage={this.props.changePageNumber}
                 total={this.props.totalPages}
               />
@@ -160,6 +158,7 @@ class TabList extends Component {
             <div className="AppPagination">
               <PaginationComponent
                 key={this.state.activeKey}
+                TabListKey={this.state.activeKey}
                 changePage={this.props.changePageOfRaitedMovies}
                 total={this.props.totalPagesOfRaitedMovies}
               />

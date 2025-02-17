@@ -11,18 +11,9 @@ class RateMovie extends Component {
 
   handleChange = (value) => {
     if (!this.context.addRaitinginProcess) {
-      console.log("addRaitinginProcess is false i will start normal mod");
       this.context.changeRaitingLoadedFalse();
       this.context.changeAddRaitinginProcessTrue();
       this.setState({ value }, () => {
-        console.log(
-          "before addRaiting this.context.pageOfRaitedMovies",
-          this.context.pageOfRaitedMovies
-        );
-        console.log(
-          "before addRaiting this.context.totalPagesOfRaitedMovies",
-          this.context.totalPagesOfRaitedMovies
-        );
         AddRaiting(
           this.state.value,
           this.props.guestSessionId,
@@ -35,21 +26,15 @@ class RateMovie extends Component {
             this.context.changeRaitingLoadedTrue();
             return;
           }
-          console.log("after raiting", this.context.guestSessionId);
-          console.log("after ViewRatedMovies", res);
-          console.log("after ViewRatedMovies", res);
+
           this.context.changeRatedMoviesArray(res.results);
           this.context.changePageOfRaitedMovies(res.page);
           this.context.changeTotalPagesOfRaitedMovies(res.total_pages);
           this.context.changeAddRaitinginProcessFalse();
           this.context.changeRaitingLoadedTrue();
-          console.log(
-            `loading flags: addRaitinginProcess: ${this.context.addRaitinginProcess}, raitingLoaded: ${this.context.raitingLoaded}`
-          );
         });
       });
     } else {
-      console.log("addRaitinginProcess is true i will start else mod");
       setTimeout(() => {
         console.log("addRaitinginProcess after timeout");
         this.handleChange(value);
@@ -58,7 +43,6 @@ class RateMovie extends Component {
   };
 
   componentDidMount() {
-    console.log("componentDidMount in RateMovie");
     if (
       this.context.ratedMoviesArray &&
       this.context.ratedMoviesArray.length > 0

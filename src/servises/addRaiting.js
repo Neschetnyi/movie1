@@ -9,7 +9,6 @@ async function AddRaiting(raiting, sessionId, movieId, page) {
     },
     body: `{"value":${raiting}}`, // Используем правильный синтаксис для тела запроса
   };
-  console.log("session Id перед fetch: ", sessionId);
 
   try {
     const res = await fetch(
@@ -37,11 +36,6 @@ async function AddRaiting(raiting, sessionId, movieId, page) {
   };
 
   try {
-    console.log("page перед fetch: ", page);
-    console.log(
-      `https://api.themoviedb.org/3/guest_session/${sessionId}/rated/movies?language=en-US&page=${page}&sort_by=created_at.asc`
-    );
-
     const res2 = await fetch(
       `https://api.themoviedb.org/3/guest_session/${sessionId}/rated/movies?language=en-US&page=${page}&sort_by=created_at.asc`,
       options2

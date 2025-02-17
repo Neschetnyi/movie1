@@ -4,57 +4,41 @@ import MyContext from "../MyContext/MyContext";
 
 class PaginationComponent extends Component {
   state = {
-    current: 1,
-    totalPages: this.props.total,
+    current: 1, // Начальное значение для текущей страницы
+    totalPages: this.props.total || 1,
   };
 
   onChange = (page) => {
     this.setState({ current: page }, () => {
-      this.props.changePage(this.state.current);
+      this.props.changePage(page); // Сообщаем родителю о смене страницы
     });
   };
 
-  updateTotalPages = () => {
-    this.setState({ totalPages: Number(this.props.total) });
-  };
-
-  componentDidMount() {
-    this.updateTotalPages();
-  }
-
-  componentDidUpdate(prevProps) {
-    if (prevProps.total !== this.props.total) {
-      console.log("Detected change in totalPages (Raited)");
-      this.updateTotalPages();
+  componentDidUpdate(prevProps, prevState) {
+    // Проверяем, изменились ли пропсы
+    if (
+      prevProps.total !== this.props.total ||
+      prevState.totalPages !== this.state.totalPages ||
+      prevProps.TabListKey !== this.props.TabListKey
+    ) {
+      this.setState({ totalPages: this.props.total });
     }
 
-    console.log(
-      "componentDidUpdate - current:",
-      this.state.current,
-      "totalPages:",
-      this.state.totalPages
-    );
+    if (prevProps.current !== this.props.current) {
+      this.setState({ current: this.props.current }); // Обновляем текущую страницу
+    }
   }
 
   render() {
-    console.log(
-      "Rendering PaginationComponent with current:",
-      this.state.current,
-      "totalPages:",
-      this.state.totalPages
-    );
     return (
       <Pagination
         current={this.state.current}
         onChange={this.onChange}
         total={this.state.totalPages}
         showSizeChanger={false}
-        showQuickJumper
       />
     );
   }
 }
-
-// PaginationComponent2.contextType = MyContext;
 
 export default PaginationComponent;
