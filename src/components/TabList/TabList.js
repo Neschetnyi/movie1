@@ -84,7 +84,10 @@ class TabList extends Component {
       }
 
       this.props.changeRaitingLoadedFalse();
-      if (this.props.ratedMoviesArray.length !== 0) {
+      if (
+        this.props.ratedMoviesArray &&
+        this.props.ratedMoviesArray.length !== 0
+      ) {
         ViewRatedMovies(
           this.props.guestSessionId,
           this.props.pageOfRaitedMovies
