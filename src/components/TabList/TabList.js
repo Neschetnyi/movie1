@@ -6,26 +6,50 @@ import PaginationComponent from "../PaginationComponent/PaginationComponent";
 import PaginationComponent2 from "../PaginationComponent2/PaginationComponent2";
 import { Spin } from "antd";
 import ViewRatedMovies from "../../servises/ViewRatedMovies";
+import { Pagination } from "antd";
 
 class TabList extends Component {
   state = {
     activeKey: "1",
     activeTab: "Search",
+    current: 1,
+    totalPages: this.props.totalPages,
   };
 
   onChange = (key) => {
     if (key === "1") {
-      this.setState({ activeTab: "Search" });
+      this.setState(
+        { activeTab: "Search" },
+        console.log("changing Tab to 'Search'", this.state.activeTab)
+      );
+      this.setState({ totalPages: this.props.totalPages });
     } else {
-      this.setState({ activeTab: "Raited" });
+      this.setState(
+        { activeTab: "Raited" },
+        console.log("changing Tab to 'Raited'", this.state.activeTab)
+      );
+      this.setState({ totalPages: this.props.totalPagesOfRaitedMovies * 10 });
+      console.log(
+        "totalPagesOfRaitedMovies type is",
+        typeof this.props.totalPagesOfRaitedMovies
+      );
+
+      this.setState({ totalPages: this.props.totalPagesOfRaitedMovies });
     }
     this.setState({ activeKey: key });
     console.log("changing Tab", key);
   };
 
+  onChangePagination = (page) => {
+    this.setState({ current: page }, () => {
+      this.props.changePageNumber(page); // Сообщаем родителю о смене страницы
+    });
+  };
+
   componentDidMount() {
     console.log("TabList componentDidMount");
     this.props.changeRaitingLoadedFalse();
+    this.setState({ totalPages: this.props.totalPages });
     if (this.props.ratedMoviesArray.length !== 0) {
       ViewRatedMovies(this.props.guestSessionId, this.props.pageOfRaitedMovies)
         .then((res) => {
@@ -38,14 +62,22 @@ class TabList extends Component {
 
   componentDidUpdate(prevProps, prevState) {
     if (
+      prevState.activeTab !== this.state.activeTab ||
       prevState.activeKey !== this.state.activeKey ||
       prevProps.totalPagesOfRaitedMovies !==
         this.props.totalPagesOfRaitedMovies ||
-      prevProps.pageOfRaitedMovies !== this.props.pageOfRaitedMovies
+      prevProps.pageOfRaitedMovies !== this.props.pageOfRaitedMovies ||
+      prevProps.totalPages !== this.props.totalPages ||
+      prevProps.pageNumber !== this.props.pageNumber
     ) {
-      this.props.changeTotalPagesOfRaitedMovies(
-        this.props.totalPagesOfRaitedMovies
-      );
+      console.log("TabList is changed");
+
+      if (this.state.activeTab === "Raited") {
+        this.setState({ totalPages: this.props.totalPagesOfRaitedMovies * 10 });
+      } else {
+        this.setState({ totalPages: this.props.totalPages });
+      }
+
       this.props.changeRaitingLoadedFalse();
       if (this.props.ratedMoviesArray.length !== 0) {
         ViewRatedMovies(
@@ -54,6 +86,7 @@ class TabList extends Component {
         )
           .then((res) => {
             this.props.changeRatedMoviesArray(res.results);
+            this.props.changeTotalPagesOfRaitedMovies(res.total_pages);
             return Promise.resolve();
           })
           .then((res) => this.props.changeRaitingLoadedTrue());
@@ -144,55 +177,66 @@ class TabList extends Component {
                 changePageNumber={this.props.changePageNumber}
               />
             </div>
-            <div className="AppPagination">
-              <PaginationComponent
-                key={this.state.activeKey}
-                TabListKey={this.state.activeKey}
-                changePage={this.props.changePageNumber}
-                total={this.props.totalPages}
-              />
-            </div>
           </>
         ),
       },
       {
         key: "2",
         label: "Raited",
-        children: (
-          <>
-            {raitedTabContent}
-            <div className="AppPagination">
-              <PaginationComponent
-                key={this.state.activeKey}
-                TabListKey={this.state.activeKey}
-                changePage={this.props.changePageOfRaitedMovies}
-                total={this.props.totalPagesOfRaitedMovies}
-              />
-            </div>
-          </>
-        ),
+        children: raitedTabContent,
       },
     ];
 
     return (
-      <Tabs
-        defaultActiveKey="1"
-        items={items}
-        onChange={this.onChange}
-        centered
-      />
+      <>
+        <Tabs
+          defaultActiveKey="1"
+          items={items}
+          onChange={this.onChange}
+          centered
+        />
+        <div className="AppPagination">
+          <Pagination
+            current={this.state.current}
+            onChange={this.onChangePagination}
+            total={this.state.totalPages}
+            showSizeChanger={false}
+          />
+        </div>
+      </>
     );
   }
 }
 
 export default TabList;
 /*
- <PaginationComponent2
-                key={this.state.activeKey}
-                changePageOfRaitedMovies={this.props.changePageOfRaitedMovies}
-                totalPagesOfRaitedMovies={this.props.totalPagesOfRaitedMovies}
-                pageOfRaitedMovies={this.props.pageOfRaitedMovies}
-                changeRatedMoviesArray={this.props.changeRatedMoviesArray}
-                guestSessionId={this.props.guestSessionId}
-              />
+ <PaginationComponent
+            key={this.state.activeKey}
+            TabListKey={this.state.activeKey}
+            changePage={changePage}
+            total={total}
+          />
+
+
+
+    let changePage = this.props.changePageNumber;
+    let total = this.props.totalPages;
+
+    if (this.state.activeKey === "2") {
+      console.log("");
+
+      changePage = this.props.changePageOfRaitedMovies;
+      total = this.props.totalPagesOfRaitedMovies;
+      console.log("changePage и total");
+    }
+    console.log(
+      "active tab",
+      '"',
+      this.state.activeTab,
+      '"',
+      "changePage и total before render",
+      changePage,
+      "total:",
+      total
+    );
 */

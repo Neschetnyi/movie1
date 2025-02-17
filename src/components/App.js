@@ -24,7 +24,7 @@ class App extends Component {
     addRaitinginProcess: false,
     raitingLoaded: false,
     pageOfRaitedMovies: 1,
-    totalPagesOfRaitedMovies: null,
+    totalPagesOfRaitedMovies: 1,
   };
 
   changePageOfRaitedMovies = (value) => {

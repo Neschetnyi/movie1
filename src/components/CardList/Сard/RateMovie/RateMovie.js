@@ -29,6 +29,8 @@ class RateMovie extends Component {
 
           this.context.changeRatedMoviesArray(res.results);
           this.context.changePageOfRaitedMovies(res.page);
+          console.log("server total pages", res.total_pages);
+
           this.context.changeTotalPagesOfRaitedMovies(res.total_pages);
           this.context.changeAddRaitinginProcessFalse();
           this.context.changeRaitingLoadedTrue();
