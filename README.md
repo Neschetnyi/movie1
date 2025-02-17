@@ -9,4 +9,6 @@ https://github.com/Neschetnyi/movie1/tree/errors
 
 https://github.com/Neschetnyi/movie1/tree/paginationstage
 
+итоговый репозиторий:
+
 https://github.com/Neschetnyi/movie1
