@@ -1,6 +1,11 @@
-https://neschetnyi.github.io/movie1/
+сама страница, без vpn нормально не работает https://neschetnyi.github.io/movie1/
+
 steps:
+
 https://github.com/Neschetnyi/movie1/tree/start
+
 https://github.com/Neschetnyi/movie1/tree/errors
+
 https://github.com/Neschetnyi/movie1/tree/paginationstage
+
 https://github.com/Neschetnyi/movie1
