@@ -198,33 +198,29 @@ class App extends Component {
             }}
           >
             <TabList
-              ratedMoviesArray={this.state.ratedMoviesArray}
-              cards={this.state.cards}
-              raitingLoaded={this.state.raitingLoaded}
-              genres={this.state.genres}
+              //
               urlPart={this.state.urlPart}
               pageNumber={this.state.pageNumber}
-              totalPages={this.state.totalPages}
-              guestSessionId={this.state.guestSessionId}
-              notLoaded={this.state.notLoaded}
-              addRaitinginProcess={this.state.addRaitinginProcess}
-              changeRatedMoviesArray={this.changeRatedMoviesArray}
-              changeAddRaitinginProcessTrue={this.changeAddRaitinginProcessTrue}
-              changeAddRaitinginProcessFalse={
-                this.changeAddRaitinginProcessFalse
-              }
-              changeRaitingLoadedTrue={this.changeRaitingLoadedTrue}
-              changeRaitingLoadedFalse={this.changeRaitingLoadedFalse}
               changeCards={this.changeCards}
-              Pages={this.Pages}
-              changeUrlPart={this.changeUrlPart}
+              changeRatedMoviesArray={this.changeRatedMoviesArray}
+              cards={this.state.cards}
+              genres={this.state.genres}
+              guestSessionId={this.state.guestSessionId}
+              activeTab={this.state.activeTab}
+              notLoaded={this.state.notLoaded}
+              totalPages={this.state.totalPages}
+              ratedMoviesArray={this.state.ratedMoviesArray}
+              totalPagesOfRaitedMovies={this.state.totalPagesOfRaitedMovies}
+              raitingLoaded={this.state.raitingLoaded}
               changePageNumber={this.changePageNumber}
               changePageOfRaitedMovies={this.changePageOfRaitedMovies}
+              changeRaitingLoadedFalse={this.changeRaitingLoadedFalse}
+              changeRaitingLoadedTrue={this.changeRaitingLoadedTrue}
+              pageOfRaitedMovies={this.state.pageOfRaitedMovies}
               changeTotalPagesOfRaitedMovies={
                 this.changeTotalPagesOfRaitedMovies
               }
-              pageOfRaitedMovies={this.state.pageOfRaitedMovies}
-              totalPagesOfRaitedMovies={this.state.totalPagesOfRaitedMovies}
+              //
             />
           </MyContext.Provider>
         </div>

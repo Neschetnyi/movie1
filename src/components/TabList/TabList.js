@@ -107,7 +107,7 @@ class TabList extends Component {
   }
 
   render() {
-    let raitedTabContent = true ? (
+    let raitedTabContent = this.props.raitingLoaded ? (
       <div className="AppCardlist">
         <CardList
           cards={this.props.ratedMoviesArray}
