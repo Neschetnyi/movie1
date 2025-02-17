@@ -13,6 +13,8 @@ class TabList extends Component {
     activeKey: "1",
     activeTab: "Search",
     current: 1,
+    currentInRaited: 1,
+    currentInSearch: 1,
     totalPages: this.props.totalPages,
   };
 
@@ -23,6 +25,7 @@ class TabList extends Component {
         console.log("changing Tab to 'Search'", this.state.activeTab)
       );
       this.setState({ totalPages: this.props.totalPages });
+      this.setState({ current: this.props.pageNumber });
     } else {
       this.setState(
         { activeTab: "Raited" },
@@ -35,6 +38,7 @@ class TabList extends Component {
       );
 
       this.setState({ totalPages: this.props.totalPagesOfRaitedMovies });
+      this.setState({ current: this.props.pageOfRaitedMovies });
     }
     this.setState({ activeKey: key });
     console.log("changing Tab", key);
@@ -42,7 +46,10 @@ class TabList extends Component {
 
   onChangePagination = (page) => {
     this.setState({ current: page }, () => {
-      this.props.changePageNumber(page); // Сообщаем родителю о смене страницы
+      if (this.state.activeTab === "Search") this.props.changePageNumber(page);
+      else if (this.state.activeTab === "Raited") {
+        this.props.changePageOfRaitedMovies(page);
+      }
     });
   };
 
@@ -209,34 +216,3 @@ class TabList extends Component {
 }
 
 export default TabList;
-/*
- <PaginationComponent
-            key={this.state.activeKey}
-            TabListKey={this.state.activeKey}
-            changePage={changePage}
-            total={total}
-          />
-
-
-
-    let changePage = this.props.changePageNumber;
-    let total = this.props.totalPages;
-
-    if (this.state.activeKey === "2") {
-      console.log("");
-
-      changePage = this.props.changePageOfRaitedMovies;
-      total = this.props.totalPagesOfRaitedMovies;
-      console.log("changePage и total");
-    }
-    console.log(
-      "active tab",
-      '"',
-      this.state.activeTab,
-      '"',
-      "changePage и total before render",
-      changePage,
-      "total:",
-      total
-    );
-*/
